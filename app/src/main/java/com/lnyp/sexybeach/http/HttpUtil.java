@@ -1,8 +1,9 @@
-package com.lnyp.sexybeach;
+package com.lnyp.sexybeach.http;
 
 import android.content.Context;
 import android.widget.Toast;
 
+import com.apkfuns.logutils.LogUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 
@@ -20,6 +21,7 @@ public class HttpUtil {
 
     public static void getReq(Context context, String url, RequestParams requestParams, ResponseHandler responseHandler) {
 
+        LogUtils.e("url : " + url);
         client.get(context, url, requestParams, responseHandler);
     }
 
@@ -41,7 +43,7 @@ public class HttpUtil {
     *            服务端接收URL
     * @throws Exception
     */
-    public static void uploadFile(final Context context, String path, String url,ResponseHandler responseHandler){
+    public static void uploadFile(final Context context, String path, String url, ResponseHandler responseHandler) {
 
         File file = new File(path);
         if (file.exists() && file.length() > 0) {

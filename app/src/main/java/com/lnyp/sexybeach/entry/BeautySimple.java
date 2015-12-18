@@ -1,9 +1,11 @@
 package com.lnyp.sexybeach.entry;
 
+import java.io.Serializable;
+
 /**
  * Created by lining on 2015/12/18.
  */
-public class BeautySimple {
+public class BeautySimple implements Serializable {
 
     /**
      * count : 39

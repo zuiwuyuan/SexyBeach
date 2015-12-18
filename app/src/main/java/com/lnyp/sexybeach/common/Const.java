@@ -1,4 +1,4 @@
-package com.lnyp.sexybeach;
+package com.lnyp.sexybeach.common;
 
 /**
  *

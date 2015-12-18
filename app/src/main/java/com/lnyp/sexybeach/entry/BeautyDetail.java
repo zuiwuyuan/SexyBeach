@@ -1,6 +1,6 @@
 package com.lnyp.sexybeach.entry;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class BeautyDetail {
 
@@ -26,13 +26,8 @@ public class BeautyDetail {
     private int size;
     private long time;
     private String title;
-    /**
-     * gallery : 521
-     * id : 8696
-     * src : /ext/151218/3bb44bfaf00e376b9eacae096bb0c4ce.jpg
-     */
 
-    private List<ListEntity> list;
+    private ArrayList<ListEntity> list;
 
     public void setCount(int count) {
         this.count = count;
@@ -70,7 +65,7 @@ public class BeautyDetail {
         this.title = title;
     }
 
-    public void setList(List<ListEntity> list) {
+    public void setList(ArrayList<ListEntity> list) {
         this.list = list;
     }
 
@@ -110,37 +105,8 @@ public class BeautyDetail {
         return title;
     }
 
-    public List<ListEntity> getList() {
+    public ArrayList<ListEntity> getList() {
         return list;
     }
 
-    public static class ListEntity {
-        private int gallery;
-        private int id;
-        private String src;
-
-        public void setGallery(int gallery) {
-            this.gallery = gallery;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public void setSrc(String src) {
-            this.src = src;
-        }
-
-        public int getGallery() {
-            return gallery;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public String getSrc() {
-            return src;
-        }
-    }
 }

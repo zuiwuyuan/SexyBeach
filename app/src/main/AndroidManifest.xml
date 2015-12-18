@@ -22,21 +22,35 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:name=".MyApplication"
+        android:name=".activity.MyApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".page.MainActivity">
+        android:theme="@style/no_title">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".page.BeautyListActivity" />
-        <activity android:name=".page.BeautyDetailActivity"></activity>
+        <activity
+            android:name=".activity.BeautyListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityAnimationTheme" />
+        <activity
+            android:name=".activity.BeautyDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityAnimationTheme" />
+        <activity
+            android:name=".activity.NewBeautyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityAnimationTheme" />
+        <activity
+            android:name=".activity.ImageBrowseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/activityAnimationTheme" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.lnyp.sexybeach;
+package com.lnyp.sexybeach.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

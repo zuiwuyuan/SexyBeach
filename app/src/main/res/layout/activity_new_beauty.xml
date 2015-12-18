@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.lnyp.sexybeach.activity.BeautyListActivity">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rViewClassify"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    tools:context="com.lnyp.sexybeach.activity.NewBeautyActivity">
 
 </RelativeLayout>

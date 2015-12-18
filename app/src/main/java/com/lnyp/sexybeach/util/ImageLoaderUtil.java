@@ -34,10 +34,10 @@ public class ImageLoaderUtil {
         mImageLoader = ImageLoader.getInstance();
         mListItemOptions = new DisplayImageOptions.Builder()
                 // 设置图片Uri为空或是错误的时候显示的图片
-                .showImageForEmptyUri(R.mipmap.default_empty_bg)
-                .showImageOnLoading(R.mipmap.default_empty_bg)
+                .showImageForEmptyUri(R.drawable.default_empty_bg)
+                .showImageOnLoading(R.drawable.default_empty_bg)
                 // 设置图片加载/解码过程中错误时候显示的图片
-                .showImageOnFail(R.mipmap.default_empty_bg)
+                .showImageOnFail(R.drawable.default_empty_bg)
                 // 加载图片时会在内存、磁盘中加载缓存
                 .cacheInMemory(true)
                 .cacheOnDisk(true)

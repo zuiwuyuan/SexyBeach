@@ -1,9 +1,11 @@
 package com.lnyp.sexybeach.entry;
 
+import java.io.Serializable;
+
 /**
  * Created by lining on 2015/12/18.
  */
-public class BeautyClassify {
+public class BeautyClassify implements Serializable {
     /**
      * description : 性感美女
      * id : 1
