@@ -12,10 +12,34 @@
     <!-- 去掉tab顶部的黑边 -->
     <style name="no_title" parent="@android:style/Theme.Holo.Light.NoActionBar">
 
-          <item name="android:listDivider">@drawable/divider_bg</item>
+        <item name="android:listDivider">@drawable/divider_bg</item>
         <item name="android:windowContentOverlay">@null</item>
 
     </style>
+
+    <!-- PageIndicator样式 -->
+    <style name="StyledIndicators" parent="activityAnimationTheme">
+        <item name="vpiTabPageIndicatorStyle">@style/CustomTabPageIndicator</item>
+    </style>
+
+    <style name="CustomTabPageIndicator" parent="Widget.TabPageIndicator">
+        <item name="android:background">@drawable/tab_indicator</item>
+        <item name="android:textAppearance">@style/CustomTabPageIndicator.Text</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:fadingEdge">horizontal</item>
+        <item name="android:fadingEdgeLength">8dp</item>
+    </style>
+
+    <style name="CustomTabPageIndicator.Text" parent="android:TextAppearance.Medium">
+        <item name="android:typeface">normal</item>
+        <item name="android:textColor">@drawable/selector_tabtext</item>
+    </style>
+
 
     <style name="activityAnimationTheme" parent="no_title">
         <item name="android:windowAnimationStyle">@style/activityAnimation</item>
@@ -28,5 +52,13 @@
         <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
     </style>
 
+    <!--    progeressbar样式，用于加载显示图片进度     -->
+    <style name="mProgress_circle">
+        <item name="android:indeterminateDrawable">@drawable/imgloader_progress_img</item>
+        <item name="android:minWidth">25dp</item>
+        <item name="android:minHeight">25dp</item>
+        <item name="android:maxWidth">60dp</item>
+        <item name="android:maxHeight">60dp</item>
+    </style>
 
 </resources>

@@ -2,12 +2,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="6dp">
 
     <ImageView
         android:id="@+id/imgBeautyGril"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="400dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/beauty_default_img" />
@@ -21,6 +22,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:singleLine="true"
-        android:text="性感美女" />
+        android:text="性感美女"
+        android:textColor="#EBEFF2" />
 
 </FrameLayout>

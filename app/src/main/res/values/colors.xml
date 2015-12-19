@@ -4,5 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="main_top_title_bg">#00c7c0</color>
+    <color name="main_top_title_bg">#BFFEBF</color>
+
+    <!-- 用于项目、活动导航的背景色-->
+    <item name="base_tabpager_indicator_unselecte" type="drawable">#EBEFF2</item>
+
 </resources>

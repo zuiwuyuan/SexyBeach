@@ -23,6 +23,7 @@ import java.io.File;
  * 配置全局的 Android-Universal-Image-Loader
  */
 public class ImageLoaderUtil {
+
     private static ImageLoaderUtil instance = null;
 
     private ImageLoader mImageLoader;
@@ -43,7 +44,7 @@ public class ImageLoaderUtil {
                 .cacheOnDisk(true)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
-                .delayBeforeLoading(200)
+//                .delayBeforeLoading(200)
 //                .displayer(new FadeInBitmapDisplayer(500))
                 .build();
     }
@@ -59,15 +60,15 @@ public class ImageLoaderUtil {
 
         File cacheDir = StorageUtils.getCacheDirectory(context);
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
-                .memoryCacheExtraOptions(480, 800) // default = device screen dimensions
-                .diskCacheExtraOptions(480, 800, null)
+                .memoryCacheExtraOptions(720, 1280) // default = device screen dimensions
+                .diskCacheExtraOptions(720, 1280, null)
                 .denyCacheImageMultipleSizesInMemory()
                 .threadPoolSize(3) // default
                 .threadPriority(Thread.NORM_PRIORITY - 2) // default
                 .tasksProcessingOrder(QueueProcessingType.FIFO) // default
                 .denyCacheImageMultipleSizesInMemory()
                 .memoryCache(new UsingFreqLimitedMemoryCache(10 * 1024 * 1024))
-                .diskCacheSize(200 * 1024 * 1024)
+                .diskCacheSize(500 * 1024 * 1024)
                 .diskCache(new UnlimitedDiskCache(cacheDir)) // default
                 .imageDownloader(new BaseImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
 //                .writeDebugLogs()
@@ -84,8 +85,11 @@ public class ImageLoaderUtil {
      * @param uri
      * @param imageView
      */
-    public void displayListItemImage(String uri, ImageView imageView) {
+    public void displayListItemImage(String uri, ImageView imageView, DisplayImageOptions options) {
         String strUri = (isEmpty(uri) ? "" : uri);
+        if (options != null) {
+            mListItemOptions = options;
+        }
         mImageLoader.displayImage(strUri, imageView, mListItemOptions);
     }
 
@@ -95,8 +99,11 @@ public class ImageLoaderUtil {
      * @param uri
      * @param imageView
      */
-    public void displayListItemImage(String uri, ImageView imageView, ImageLoadingListener listener) {
+    public void displayListItemImage(String uri, ImageView imageView, ImageLoadingListener listener, DisplayImageOptions options) {
         String strUri = (isEmpty(uri) ? "" : uri);
+        if (options != null) {
+            mListItemOptions = options;
+        }
         mImageLoader.displayImage(strUri, imageView, mListItemOptions, listener);
     }
 
@@ -106,8 +113,11 @@ public class ImageLoaderUtil {
      * @param uri
      * @param imageView
      */
-    public void displayListItemImage(String uri, ImageView imageView, ImageLoadingListener listener, ImageLoadingProgressListener progressListener) {
+    public void displayListItemImage(String uri, ImageView imageView, ImageLoadingListener listener, ImageLoadingProgressListener progressListener, DisplayImageOptions options) {
         String strUri = (isEmpty(uri) ? "" : uri);
+        if (options != null) {
+            mListItemOptions = options;
+        }
         mImageLoader.displayImage(strUri, imageView, mListItemOptions, listener, progressListener);
     }
 

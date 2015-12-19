@@ -54,7 +54,9 @@ public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAd
     public void onBindViewHolder(final ImgInfoHolder holder, int position) {
 
         holder.textClasifyTitle.setText(datas.get(position).getTitle());
-        ImageLoaderUtil.getInstance().displayListItemImage(Const.BASE_IMG_URL2 + datas.get(position).getImg(), holder.imgBeautyGril);
+//        String imgUrl = Const.BASE_IMG_URL1 + datas.get(position).getImg() + "_800x600";
+        String imgUrl = Const.BASE_IMG_URL2 + datas.get(position).getImg();
+        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, null);
 
         // 如果设置了回调，则设置点击事件
         if (mOnItemClickLitener != null) {

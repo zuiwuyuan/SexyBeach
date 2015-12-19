@@ -93,7 +93,7 @@ public class BeautyDetailActivity extends BaseActivity {
      */
     private void updateData() {
 
-        ImageLoaderUtil.getInstance().displayListItemImage(Const.BASE_IMG_URL2 + beautyDetail.getImg(), imgCover);
+        ImageLoaderUtil.getInstance().displayListItemImage(Const.BASE_IMG_URL2 + beautyDetail.getImg(), imgCover, null);
 
         LogUtils.e(beautyDetail.getList().size());
         textCount.setText("共有" + beautyDetail.getSize() + "张");

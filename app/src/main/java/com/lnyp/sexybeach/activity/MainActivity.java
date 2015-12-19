@@ -1,39 +1,22 @@
 package com.lnyp.sexybeach.activity;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
+import android.support.v4.view.ViewPager;
 
-import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.R;
-import com.lnyp.sexybeach.adapter.BeautyCiasifyAdapter;
-import com.lnyp.sexybeach.common.DividerGridItemDecoration;
-import com.lnyp.sexybeach.entry.BeautyClassify;
-import com.lnyp.sexybeach.http.HttpUtil;
-import com.lnyp.sexybeach.http.ResponseHandler;
-import com.lnyp.sexybeach.util.FastJsonUtil;
-import com.loopj.android.http.RequestParams;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.lnyp.sexybeach.adapter.ProjectPagerAdapter;
+import com.viewpagerindicator.TabPageIndicator;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
-    @Bind(R.id.rViewClassify)
-    public RecyclerView rViewClassify;
+    @Bind(R.id.tabPageProjects)
+    public TabPageIndicator tabPageProjects;
 
-    private BeautyCiasifyAdapter mAdapter;
-
-    private List<BeautyClassify> mDatas;
-
-    private ProgressDialog dialog;
+    @Bind(R.id.viewPagerProjects)
+    public ViewPager viewPagerProjects;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,89 +27,14 @@ public class MainActivity extends BaseActivity {
 
         applyKitKatTranslucency();
 
-        getBeautyClasify();
+        ProjectPagerAdapter mAdapter = new ProjectPagerAdapter(getSupportFragmentManager());
 
-//        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL);
+        viewPagerProjects.setOffscreenPageLimit(4);
 
-        rViewClassify.setLayoutManager(layoutManager);
+        viewPagerProjects.setAdapter(mAdapter);
 
-        rViewClassify.addItemDecoration(new DividerGridItemDecoration(this));
+        tabPageProjects.setViewPager(viewPagerProjects);
 
-        mDatas = new ArrayList<>();
-
-        // 设置item动画
-        rViewClassify.setItemAnimator(new DefaultItemAnimator());
     }
 
-    /**
-     * 获取美女分类
-     */
-    public void getBeautyClasify() {
-
-        RequestParams params = new RequestParams();
-
-        HttpUtil.getReq(this, "http://www.tngou.net/tnfs/api/classify", params, new ResponseHandler(this) {
-
-            @Override
-            public void onStart() {
-                super.onStart();
-                // 开启弹框
-                dialog = ProgressDialog.show(MainActivity.this, "", "加载中");
-            }
-
-            @Override
-            public void onSuccess(String result) {
-
-                LogUtils.e(result);
-
-                List<BeautyClassify> datas = FastJsonUtil.json2Collection(result, BeautyClassify.class);
-
-                mDatas.addAll(datas);
-                updateData();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-                //关闭弹框
-                dialog.dismiss();
-            }
-
-            @Override
-            public void onFinish() {
-                //关闭弹框
-                dialog.dismiss();
-            }
-        });
-    }
-
-    /**
-     * 初始化点击事件
-     */
-    private void initEvent() {
-
-        mAdapter.setOnItemClickLitener(new BeautyCiasifyAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-                BeautyClassify beautyClassify = mDatas.get(position);
-                Intent intent = new Intent(MainActivity.this, BeautyListActivity.class);
-                intent.putExtra("beautyClassify", beautyClassify);
-                MainActivity.this.startActivity(intent);
-            }
-        });
-    }
-
-    private void updateData() {
-
-        if (mAdapter == null) {
-            mAdapter = new BeautyCiasifyAdapter(this, mDatas);
-            rViewClassify.setAdapter(mAdapter);
-
-            initEvent();
-        } else {
-            mAdapter.notifyDataSetChanged();
-        }
-    }
 }
