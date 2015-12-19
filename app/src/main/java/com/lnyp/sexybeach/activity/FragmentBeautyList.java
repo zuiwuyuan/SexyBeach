@@ -87,6 +87,8 @@ public class FragmentBeautyList extends FragmentBase {
                 }
             }
         }, 1);
+
+        getBeauties();
         return view;
     }
 
@@ -94,9 +96,9 @@ public class FragmentBeautyList extends FragmentBase {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
 
-        if (isVisibleToUser) {
-            getBeauties();
-        }
+//        if (isVisibleToUser) {
+//            getBeauties();
+//        }
     }
 
     /**

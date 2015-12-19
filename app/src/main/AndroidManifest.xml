@@ -29,8 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/no_title">
         <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/StyledIndicators">
+            android:name=".activity.SplashActivity"
+            android:theme="@style/activityAnimationTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,9 +46,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/activityAnimationTheme" />
         <activity
-            android:name=".activity.NewBeautyActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/activityAnimationTheme" />
+            android:theme="@style/StyledIndicators" />
         <activity
             android:name=".activity.ImageBrowseActivity"
             android:screenOrientation="portrait"

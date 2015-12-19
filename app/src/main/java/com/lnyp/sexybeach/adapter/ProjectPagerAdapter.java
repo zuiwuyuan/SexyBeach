@@ -10,7 +10,7 @@ import com.lnyp.sexybeach.activity.FragmentNewBeauty;
 
 public class ProjectPagerAdapter extends FragmentPagerAdapter {
 
-    private static String[] titles = {"火爆美图", "性感美女", "韩日美女", "丝袜美腿"
+    private static String[] titles = {"最热美图", "性感美女", "韩日美女", "丝袜美腿"
             , "美女照片", "美女写真", "清纯美女", "性感车模"};
 
     public ProjectPagerAdapter(FragmentManager fm) {
