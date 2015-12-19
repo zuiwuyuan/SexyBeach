@@ -89,8 +89,8 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
         LinearLayout view = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
         final PhotoView img = (PhotoView) view.findViewById(R.id.photoViewImg);
 
-        img.setMaxWidth(width);
-        img.setMaxHeight((int) (width * 3));// 这里其实可以根据需求而定，我这里测试为最大宽度的3倍
+//        img.setMaxWidth(width);
+//        img.setMaxHeight((int) (width * 3));// 这里其实可以根据需求而定，我这里测试为最大宽度的3倍
 
         img.setTag(imgUrl);
         ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, img, mListItemOptions);

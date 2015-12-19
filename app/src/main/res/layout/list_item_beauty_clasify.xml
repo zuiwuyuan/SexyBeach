@@ -10,15 +10,15 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/beauty_default_img" />
+        android:src="@drawable/default_empty_bg" />
 
     <TextView
         android:id="@+id/textClasifyTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:gravity="center"
         android:background="@drawable/text_bar_bg"
+        android:gravity="center"
         android:padding="10dp"
         android:text="性感美女" />
 

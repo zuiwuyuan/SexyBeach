@@ -2,10 +2,12 @@ package com.lnyp.sexybeach.adapter;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lnyp.sexybeach.R;
@@ -56,7 +58,36 @@ public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAd
         holder.textClasifyTitle.setText(datas.get(position).getTitle());
 //        String imgUrl = Const.BASE_IMG_URL1 + datas.get(position).getImg() + "_800x600";
         String imgUrl = Const.BASE_IMG_URL2 + datas.get(position).getImg();
+
         ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, null);
+
+//        final ImgInfoHolder finalHolder = holder;
+//        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, new ImageLoadingListener() {
+//            @Override
+//            public void onLoadingStarted(String s, View view) {
+//                finalHolder.loading.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onLoadingFailed(String s, View view, FailReason failReason) {
+//                finalHolder.loading.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+//                finalHolder.loading.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onLoadingCancelled(String s, View view) {
+//
+//            }
+//        }, null);
+
+//        Picasso.with(holder.imgBeautyGril.getContext())
+//                .load(imgUrl)
+//                .resize(dp2px(280), dp2px(500))
+//                .into(holder.imgBeautyGril);
 
         // 如果设置了回调，则设置点击事件
         if (mOnItemClickLitener != null) {
@@ -80,10 +111,18 @@ public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAd
         ImageView imgBeautyGril;
         TextView textClasifyTitle;
 
+        ProgressBar loading;
+
         public ImgInfoHolder(View itemView) {
             super(itemView);
             imgBeautyGril = (ImageView) itemView.findViewById(R.id.imgBeautyGril);
             textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
+            loading = (ProgressBar) itemView.findViewById(R.id.loading);
         }
+    }
+
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                context.getResources().getDisplayMetrics());
     }
 }

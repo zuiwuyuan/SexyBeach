@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.R;
@@ -101,13 +102,22 @@ public class BeautyDetailActivity extends BaseActivity {
         textTitle.setText(beautyDetail.getTitle());
     }
 
-    @OnClick(R.id.layoutImgs)
+    @OnClick({R.id.layoutImgs, R.id.imgBack, R.id.imgShare})
     public void onClick(View view) {
 
-        Intent intent = new Intent(this, ImageBrowseActivity.class);
+        switch (view.getId()) {
+            case R.id.layoutImgs:
+                Intent intent = new Intent(this, ImageBrowseActivity.class);
 
-        intent.putParcelableArrayListExtra("imgs", beautyDetail.getList());
-        startActivity(intent);
+                intent.putParcelableArrayListExtra("imgs", beautyDetail.getList());
+                startActivity(intent);
+                break;
+            case R.id.imgBack:
+                finish();
+                break;
+            case R.id.imgShare:
+                Toast.makeText(BeautyDetailActivity.this, "分享", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
-
 }

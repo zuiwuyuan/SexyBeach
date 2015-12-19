@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context="com.lnyp.sexybeach.activity.BeautyDetailActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/text_bar_bg">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="14dp"
+            android:src="@drawable/img_back" />
+
+        <ImageView
+            android:id="@+id/imgShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="14dp"
+            android:src="@drawable/img_share" />
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textTitle"
@@ -13,22 +40,23 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="美少女的诱惑"
+        android:textColor="#555555"
         android:textSize="18sp" />
 
     <FrameLayout
         android:id="@+id/layoutImgs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/textTitle"
         android:layout_marginTop="20dp">
 
         <ImageView
             android:id="@+id/imgCover"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/beauty_default_img" />
+            android:src="@drawable/default_empty_bg" />
 
         <TextView
             android:id="@+id/textCount"
@@ -39,8 +67,8 @@
             android:gravity="center"
             android:padding="10dp"
             android:text="共有10张"
-            android:textSize="18sp" />
+            android:textColor="#EBEFF2"
+            android:textSize="14sp" />
     </FrameLayout>
 
-
-</RelativeLayout>
+</LinearLayout>

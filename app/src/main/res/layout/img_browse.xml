@@ -13,6 +13,6 @@
         android:adjustViewBounds="true"
         android:maxHeight="800dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/beauty_default_img" />
+        android:src="@drawable/default_empty_bg" />
 
 </LinearLayout>
