@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.lnyp.sexybeach.R;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
@@ -37,7 +38,7 @@ public class BaseActivity extends FragmentActivity {
             SystemBarTintManager mTintManager = new SystemBarTintManager(this);
             mTintManager.setStatusBarTintEnabled(true);
 
-//            mTintManager.setStatusBarTintResource(R.color.main_top_title_bg);//通知栏所需颜色
+            mTintManager.setStatusBarTintResource(R.color.main_top_title_bg);//通知栏所需颜色
         }
 
     }

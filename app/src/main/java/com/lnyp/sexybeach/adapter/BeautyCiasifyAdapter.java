@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.entry.BeautyClassify;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +24,8 @@ public class BeautyCiasifyAdapter extends RecyclerView.Adapter<BeautyCiasifyAdap
     private List<BeautyClassify> datas;
 
     private LayoutInflater mInflater;
+
+    private List<Integer> mHeights;
 
     public interface OnItemClickLitener {
         void onItemClick(View view, int position);
@@ -39,6 +42,11 @@ public class BeautyCiasifyAdapter extends RecyclerView.Adapter<BeautyCiasifyAdap
         this.context = context;
         this.datas = datas;
         mInflater = LayoutInflater.from(context);
+
+        mHeights = new ArrayList<Integer>();
+        for (int i = 0; i < datas.size(); i++) {
+            mHeights.add((int) (400 + Math.random() * 100));
+        }
     }
 
     @Override
@@ -50,6 +58,11 @@ public class BeautyCiasifyAdapter extends RecyclerView.Adapter<BeautyCiasifyAdap
 
     @Override
     public void onBindViewHolder(final ImgInfoHolder holder, int position) {
+
+        ViewGroup.LayoutParams lp = holder.imgClasifyUrl.getLayoutParams();
+        lp.height = mHeights.get(position);
+
+        holder.imgClasifyUrl.setLayoutParams(lp);
 
         holder.textClasifyTitle.setText(datas.get(position).getTitle());
 

@@ -13,7 +13,6 @@ public class MyApp extends Application {
 
         ImageLoaderUtil.init(this);
 
-
         LogUtils.configAllowLog = true;
         LogUtils.configTagPrefix = "sexybeach-";
 

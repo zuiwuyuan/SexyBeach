@@ -80,7 +80,6 @@ public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAd
 
         public ImgInfoHolder(View itemView) {
             super(itemView);
-
             imgBeautyGril = (ImageView) itemView.findViewById(R.id.imgBeautyGril);
             textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
         }

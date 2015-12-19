@@ -4,13 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.adapter.BeautyCiasifyAdapter;
+import com.lnyp.sexybeach.common.DividerGridItemDecoration;
 import com.lnyp.sexybeach.entry.BeautyClassify;
 import com.lnyp.sexybeach.http.HttpUtil;
 import com.lnyp.sexybeach.http.ResponseHandler;
@@ -41,19 +42,22 @@ public class MainActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        applyKitKatTranslucency();
+
         getBeautyClasify();
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+//        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL);
 
         rViewClassify.setLayoutManager(layoutManager);
+
+        rViewClassify.addItemDecoration(new DividerGridItemDecoration(this));
+
         mDatas = new ArrayList<>();
-        mAdapter = new BeautyCiasifyAdapter(this, mDatas);
+
         // 设置item动画
         rViewClassify.setItemAnimator(new DefaultItemAnimator());
-
-        rViewClassify.setAdapter(mAdapter);
-
-        initEvent();
     }
 
     /**
@@ -116,6 +120,13 @@ public class MainActivity extends BaseActivity {
 
     private void updateData() {
 
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter == null) {
+            mAdapter = new BeautyCiasifyAdapter(this, mDatas);
+            rViewClassify.setAdapter(mAdapter);
+
+            initEvent();
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

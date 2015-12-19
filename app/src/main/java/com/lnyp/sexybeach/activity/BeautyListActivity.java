@@ -52,6 +52,8 @@ public class BeautyListActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        applyKitKatTranslucency();
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rViewClassify.setLayoutManager(layoutManager);

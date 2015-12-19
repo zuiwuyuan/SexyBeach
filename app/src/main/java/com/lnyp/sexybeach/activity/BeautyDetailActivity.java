@@ -47,6 +47,8 @@ public class BeautyDetailActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        applyKitKatTranslucency();
+
         BeautySimple beautySimple = (BeautySimple) getIntent().getSerializableExtra("beautySimple");
 
         getBeautyDetail(beautySimple.getId());

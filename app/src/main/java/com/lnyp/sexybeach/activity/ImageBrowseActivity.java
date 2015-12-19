@@ -10,6 +10,8 @@ import com.lnyp.sexybeach.entry.ListEntity;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 /**
  * 图片浏览
  */
@@ -24,6 +26,10 @@ public class ImageBrowseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_image_browse);
+
+        ButterKnife.bind(this);
+
+        applyKitKatTranslucency();
 
         this.imgs = getIntent().getParcelableArrayListExtra("imgs");
 
