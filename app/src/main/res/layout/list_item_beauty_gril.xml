@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="6dp">
+   >
 
     <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.lnyp.sexybeach.common.RecyclableImageView
             android:id="@+id/imgBeautyGril"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="240dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitStart"
             android:src="@drawable/default_empty_bg" />
 
         <ProgressBar
@@ -35,7 +35,7 @@
         android:layout_gravity="bottom"
         android:background="@drawable/text_bar_bg"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="6dp"
         android:singleLine="true"
         android:text="性感美女"
         android:textColor="#EBEFF2" />

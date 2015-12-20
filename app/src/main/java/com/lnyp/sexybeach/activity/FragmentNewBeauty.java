@@ -3,6 +3,8 @@ package com.lnyp.sexybeach.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,7 @@ import android.view.ViewGroup;
 import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
-import com.lnyp.sexybeach.common.DividerItemDecoration;
+import com.lnyp.sexybeach.common.DividerGridItemDecoration;
 import com.lnyp.sexybeach.entry.BeautySimple;
 import com.lnyp.sexybeach.http.HttpUtil;
 import com.lnyp.sexybeach.http.ResponseHandler;
@@ -27,7 +29,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * 项目Fragment
+ * 最新的性感美图
  */
 public class FragmentNewBeauty extends FragmentBase {
 
@@ -62,12 +64,11 @@ public class FragmentNewBeauty extends FragmentBase {
 
         mDatas = new ArrayList<>();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listViewNewBeauty.setLayoutManager(layoutManager);
 
-        listViewNewBeauty.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
-
+        listViewNewBeauty.addItemDecoration(new DividerGridItemDecoration(getActivity()));
         return view;
     }
 
@@ -77,7 +78,6 @@ public class FragmentNewBeauty extends FragmentBase {
         super.setUserVisibleHint(isVisibleToUser);
 
         if (isVisibleToUser) {
-
             getnewBeauties();
         }
     }
@@ -88,7 +88,7 @@ public class FragmentNewBeauty extends FragmentBase {
     private void getnewBeauties() {
 
         RequestParams params = new RequestParams();
-        params.put("rows", 100);
+        params.put("rows", 500);
 //        params.put("classify", "1");
 //        params.put("id", "0");
 
@@ -98,7 +98,7 @@ public class FragmentNewBeauty extends FragmentBase {
             public void onStart() {
                 super.onStart();
                 // 开启弹框
-                dialog = ProgressDialog.show(getActivity(), "", "加载中...");
+//                dialog = ProgressDialog.show(getActivity(), "", "加载中...");
             }
 
             @Override
@@ -117,12 +117,12 @@ public class FragmentNewBeauty extends FragmentBase {
             @Override
             public void onFailure(Throwable throwable) {
                 //关闭弹框
-                dialog.dismiss();
+//                dialog.dismiss();
             }
 
             @Override
             public void onFinish() {
-                dialog.dismiss();
+//                dialog.dismiss();
             }
         });
     }
@@ -155,4 +155,58 @@ public class FragmentNewBeauty extends FragmentBase {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        LogUtils.e("onStart");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        LogUtils.e("onResume");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LogUtils.e("onPause");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        LogUtils.e("onStop");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        LogUtils.e("onDetach");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LogUtils.e("onDestroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtils.e("onDestroyView");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        LogUtils.e("onActivityCreated");
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        LogUtils.e("onViewStateRestored");
+    }
 }

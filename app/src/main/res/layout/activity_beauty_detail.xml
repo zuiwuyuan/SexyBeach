@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context="com.lnyp.sexybeach.activity.BeautyDetailActivity">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -33,42 +32,53 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textTitle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="美少女的诱惑"
-        android:textColor="#555555"
-        android:textSize="18sp" />
+        android:layout_height="wrap_content">
 
-    <FrameLayout
-        android:id="@+id/layoutImgs"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/textTitle"
-        android:layout_marginTop="20dp">
-
-        <ImageView
-            android:id="@+id/imgCover"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_empty_bg" />
-
-        <TextView
-            android:id="@+id/textCount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@drawable/text_bar_bg"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="共有10张"
-            android:textColor="#EBEFF2"
-            android:textSize="14sp" />
-    </FrameLayout>
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="美少女的诱惑"
+                android:textColor="#555555"
+                android:textSize="18sp" />
+
+            <FrameLayout
+                android:id="@+id/layoutImgs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/textTitle"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/imgCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="1000dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_empty_bg" />
+
+                <TextView
+                    android:id="@+id/textCount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:background="@drawable/text_bar_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="共有10张"
+                    android:textColor="#EBEFF2"
+                    android:textSize="14sp" />
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

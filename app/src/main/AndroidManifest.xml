@@ -52,6 +52,7 @@
         <activity
             android:name=".activity.ImageBrowseActivity"
             android:screenOrientation="portrait"
+            android:process=":picture"
             android:theme="@style/activityAnimationTheme" />
     </application>
 

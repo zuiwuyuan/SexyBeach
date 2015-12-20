@@ -19,9 +19,6 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
  */
 public class BaseActivity extends FragmentActivity {
 
-    // 公共的弹出框组件
-    private Dialog dialog = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

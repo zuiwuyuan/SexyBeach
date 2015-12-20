@@ -2,14 +2,16 @@ package com.lnyp.sexybeach.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
-import com.lnyp.sexybeach.common.DividerItemDecoration;
+import com.lnyp.sexybeach.common.DividerGridItemDecoration;
 import com.lnyp.sexybeach.entry.BeautySimple;
 import com.lnyp.sexybeach.http.HttpUtil;
 import com.lnyp.sexybeach.http.ResponseHandler;
@@ -37,8 +39,6 @@ public class FragmentBeautyList extends FragmentBase {
 
     private List<BeautySimple> mDatas;
 
-    private View view;
-
     private int page = 1;
 
     private static final int ROWS = 10;
@@ -48,32 +48,20 @@ public class FragmentBeautyList extends FragmentBase {
     private boolean hasMore = false;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        id = getArguments().getInt("id");
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.fragment_beauty_list, (ViewGroup) getActivity().findViewById(R.id.viewPagerProjects), false);
-    }
-
-    @Override
     public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ViewGroup p = (ViewGroup) view.getParent();
-        if (p != null) {
-            p.removeAllViewsInLayout();
-        }
+        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_beauty_list, container, false);
 
         ButterKnife.bind(this, view);
 
+        id = getArguments().getInt("id");
+
         mDatas = new ArrayList<>();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         listViewNewBeauty.setLayoutManager(layoutManager);
-
-        listViewNewBeauty.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
+        listViewNewBeauty.addItemDecoration(new DividerGridItemDecoration(getActivity()));
 
         // 加载更多
         listViewNewBeauty.setupMoreListener(new OnMoreListener() {
@@ -92,14 +80,6 @@ public class FragmentBeautyList extends FragmentBase {
         return view;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-
-//        if (isVisibleToUser) {
-//            getBeauties();
-//        }
-    }
 
     /**
      * 获取性感美女列表
@@ -177,7 +157,9 @@ public class FragmentBeautyList extends FragmentBase {
                 BeautySimple beautySimple = mDatas.get(position);
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
                 intent.putExtra("beautySimple", beautySimple);
-                startActivity(intent);
+//                startActivity(intent);
+
+                ActivityTransitionLauncher.with(getActivity()).from(view).launch(intent);
             }
         });
     }

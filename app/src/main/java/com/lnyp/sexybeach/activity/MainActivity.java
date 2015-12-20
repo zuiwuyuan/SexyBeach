@@ -29,12 +29,11 @@ public class MainActivity extends BaseActivity {
 
         ProjectPagerAdapter mAdapter = new ProjectPagerAdapter(getSupportFragmentManager());
 
-        viewPagerProjects.setOffscreenPageLimit(4);
+        viewPagerProjects.setOffscreenPageLimit(3);
 
         viewPagerProjects.setAdapter(mAdapter);
 
         tabPageProjects.setViewPager(viewPagerProjects);
-
     }
 
 }

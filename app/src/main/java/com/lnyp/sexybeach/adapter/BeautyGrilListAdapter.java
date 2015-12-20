@@ -1,19 +1,20 @@
 package com.lnyp.sexybeach.adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
+import com.lnyp.sexybeach.common.RecyclableImageView;
 import com.lnyp.sexybeach.entry.BeautySimple;
-import com.lnyp.sexybeach.util.ImageLoaderUtil;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAd
 //        String imgUrl = Const.BASE_IMG_URL1 + datas.get(position).getImg() + "_800x600";
         String imgUrl = Const.BASE_IMG_URL2 + datas.get(position).getImg();
 
-        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, null);
+//        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, null);
 
 //        final ImgInfoHolder finalHolder = holder;
 //        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, new ImageLoadingListener() {
@@ -84,10 +85,14 @@ public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAd
 //            }
 //        }, null);
 
-//        Picasso.with(holder.imgBeautyGril.getContext())
-//                .load(imgUrl)
-//                .resize(dp2px(280), dp2px(500))
-//                .into(holder.imgBeautyGril);
+        Picasso.with(holder.imgBeautyGril.getContext())
+                .load(imgUrl)
+                .placeholder(R.drawable.default_empty_bg)
+                .error(R.drawable.default_empty_bg)
+                .resize(dp2px(200), dp2px(240))
+                .config(Bitmap.Config.RGB_565)
+//                .centerCrop()
+                .into(holder.imgBeautyGril);
 
         // 如果设置了回调，则设置点击事件
         if (mOnItemClickLitener != null) {
@@ -108,14 +113,14 @@ public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAd
 
     public class ImgInfoHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgBeautyGril;
+        RecyclableImageView imgBeautyGril;
         TextView textClasifyTitle;
 
         ProgressBar loading;
 
         public ImgInfoHolder(View itemView) {
             super(itemView);
-            imgBeautyGril = (ImageView) itemView.findViewById(R.id.imgBeautyGril);
+            imgBeautyGril = (RecyclableImageView) itemView.findViewById(R.id.imgBeautyGril);
             textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
             loading = (ProgressBar) itemView.findViewById(R.id.loading);
         }

@@ -2,6 +2,7 @@ package com.lnyp.sexybeach.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apkfuns.logutils.LogUtils;
+import com.kogitune.activity_transition.ActivityTransition;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautyDetail;
@@ -17,7 +19,10 @@ import com.lnyp.sexybeach.http.HttpUtil;
 import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.util.FastJsonUtil;
 import com.lnyp.sexybeach.util.ImageLoaderUtil;
+import com.lnyp.sexybeach.util.ImageUtil;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,6 +53,8 @@ public class BeautyDetailActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        ActivityTransition.with(getIntent()).to(imgCover).start(savedInstanceState);
+
         applyKitKatTranslucency();
 
         BeautySimple beautySimple = (BeautySimple) getIntent().getSerializableExtra("beautySimple");
@@ -65,7 +72,7 @@ public class BeautyDetailActivity extends BaseActivity {
             public void onStart() {
                 super.onStart();
                 // 开启弹框
-                dialog = ProgressDialog.show(BeautyDetailActivity.this, "", "加载中..");
+//                dialog = ProgressDialog.show(BeautyDetailActivity.this, "", "加载中..");
             }
 
             @Override
@@ -79,12 +86,12 @@ public class BeautyDetailActivity extends BaseActivity {
             @Override
             public void onFailure(Throwable throwable) {
                 //关闭弹框
-                dialog.dismiss();
+//                dialog.dismiss();
             }
 
             @Override
             public void onFinish() {
-                dialog.dismiss();
+//                dialog.dismiss();
             }
         });
     }
@@ -94,12 +101,39 @@ public class BeautyDetailActivity extends BaseActivity {
      */
     private void updateData() {
 
-        ImageLoaderUtil.getInstance().displayListItemImage(Const.BASE_IMG_URL2 + beautyDetail.getImg(), imgCover, null);
+        ImageLoaderUtil.getInstance().displayListItemImage(Const.BASE_IMG_URL2 + beautyDetail.getImg(), imgCover, new ImageLoadingListener() {
+            @Override
+            public void onLoadingStarted(String s, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+            }
+
+            @Override
+            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                // 缩放图片
+//                Bitmap zoomBitmap = ImageUtil.zoomBitmap(bitmap, 480, 300);
+
+                // 获取倒影图片
+                Bitmap reflectBitmap = ImageUtil.createReflectionImageWithOrigin(bitmap);
+
+                imgCover.setImageBitmap(reflectBitmap);
+            }
+
+            @Override
+            public void onLoadingCancelled(String s, View view) {
+
+            }
+        }, null);
 
         LogUtils.e(beautyDetail.getList().size());
         textCount.setText("共有" + beautyDetail.getSize() + "张");
 
         textTitle.setText(beautyDetail.getTitle());
+
     }
 
     @OnClick({R.id.layoutImgs, R.id.imgBack, R.id.imgShare})

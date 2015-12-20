@@ -13,9 +13,10 @@ import android.widget.LinearLayout;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.ListEntity;
-import com.lnyp.sexybeach.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,8 +93,16 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
 //        img.setMaxWidth(width);
 //        img.setMaxHeight((int) (width * 3));// 这里其实可以根据需求而定，我这里测试为最大宽度的3倍
 
-        img.setTag(imgUrl);
-        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, img, mListItemOptions);
+//        img.setTag(imgUrl);
+//        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, img, mListItemOptions);
+
+        Picasso.with(mContext)
+                .load(imgUrl)
+//                .config(Bitmap.Config.RGB_565)
+                .placeholder(R.drawable.default_empty_bg)
+                .error(R.drawable.default_empty_bg)
+                .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                .into(img);
 
         img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
             @Override
