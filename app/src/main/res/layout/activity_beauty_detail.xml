@@ -47,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="美少女的诱惑"
+                android:text=""
+
                 android:textColor="#555555"
                 android:textSize="18sp" />
 

@@ -100,4 +100,6 @@ public class BeautySimple implements Serializable {
     public String getTitle() {
         return title;
     }
+
+
 }

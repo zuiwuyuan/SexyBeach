@@ -103,7 +103,7 @@ public class FragmentNewBeauty extends FragmentBase {
             @Override
             public void onSuccess(String result) {
 
-                LogUtils.e(result);
+//                LogUtils.e(result);
 
                 RspBeautySimple rspBeautySimple = FastJsonUtil.json2T(result, RspBeautySimple.class);
 
@@ -148,6 +148,10 @@ public class FragmentNewBeauty extends FragmentBase {
 
                 BeautySimple beautySimple = mDatas.get(position);
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
+
+                LogUtils.e("position : " + position);
+                LogUtils.e("beautySimple : " + beautySimple);
+
                 intent.putExtra("beautySimple", beautySimple);
                 startActivity(intent);
             }

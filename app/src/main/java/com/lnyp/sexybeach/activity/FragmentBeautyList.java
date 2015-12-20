@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
 import com.lnyp.sexybeach.common.DividerGridItemDecoration;
@@ -38,6 +39,8 @@ public class FragmentBeautyList extends FragmentBase {
 
     private List<BeautySimple> mDatas;
 
+    private View view;
+
     private int page = 1;
 
     private static final int ROWS = 10;
@@ -47,13 +50,23 @@ public class FragmentBeautyList extends FragmentBase {
     private boolean hasMore = false;
 
     @Override
-    public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_beauty_list, container, false);
-
-        ButterKnife.bind(this, view);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         id = getArguments().getInt("id");
+
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        view = inflater.inflate(R.layout.fragment_beauty_list, (ViewGroup) getActivity().findViewById(R.id.viewPagerProjects), false);
+    }
+
+    @Override
+    public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        ViewGroup p = (ViewGroup) view.getParent();
+        if (p != null) {
+            p.removeAllViewsInLayout();
+        }
+        ButterKnife.bind(this, view);
 
         mDatas = new ArrayList<>();
 
@@ -156,6 +169,8 @@ public class FragmentBeautyList extends FragmentBase {
                 BeautySimple beautySimple = mDatas.get(position);
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
                 intent.putExtra("beautySimple", beautySimple);
+                LogUtils.e("position : " + position);
+                LogUtils.e("beautySimple : " + beautySimple);
                 startActivity(intent);
 
 //                ActivityTransitionLauncher.with(getActivity()).from(view).launch(intent);
