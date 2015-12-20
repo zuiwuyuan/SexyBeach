@@ -3,7 +3,6 @@ package com.lnyp.sexybeach.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -153,60 +152,5 @@ public class FragmentNewBeauty extends FragmentBase {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        LogUtils.e("onStart");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        LogUtils.e("onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        LogUtils.e("onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        LogUtils.e("onStop");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        LogUtils.e("onDetach");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        LogUtils.e("onDestroy");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        LogUtils.e("onDestroyView");
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        LogUtils.e("onActivityCreated");
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        LogUtils.e("onViewStateRestored");
     }
 }

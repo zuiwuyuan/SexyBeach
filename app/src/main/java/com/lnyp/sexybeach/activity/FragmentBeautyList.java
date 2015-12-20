@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kogitune.activity_transition.ActivityTransitionLauncher;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
 import com.lnyp.sexybeach.common.DividerGridItemDecoration;
@@ -157,9 +156,9 @@ public class FragmentBeautyList extends FragmentBase {
                 BeautySimple beautySimple = mDatas.get(position);
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
                 intent.putExtra("beautySimple", beautySimple);
-//                startActivity(intent);
+                startActivity(intent);
 
-                ActivityTransitionLauncher.with(getActivity()).from(view).launch(intent);
+//                ActivityTransitionLauncher.with(getActivity()).from(view).launch(intent);
             }
         });
     }

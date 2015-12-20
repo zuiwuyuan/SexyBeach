@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apkfuns.logutils.LogUtils;
-import com.kogitune.activity_transition.ActivityTransition;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautyDetail;
@@ -53,7 +52,7 @@ public class BeautyDetailActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        ActivityTransition.with(getIntent()).to(imgCover).start(savedInstanceState);
+//        ActivityTransition.with(getIntent()).to(imgCover).start(savedInstanceState);
 
         applyKitKatTranslucency();
 
