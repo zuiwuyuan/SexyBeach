@@ -3,13 +3,14 @@ package com.lnyp.sexybeach.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apkfuns.logutils.LogUtils;
+import com.lnyp.sexybeach.MyApp;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautyDetail;
@@ -19,9 +20,13 @@ import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.util.FastJsonUtil;
 import com.lnyp.sexybeach.util.ImageLoaderUtil;
 import com.lnyp.sexybeach.util.ImageUtil;
+import com.lnyp.sexybeach.util.Util;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -149,7 +154,20 @@ public class BeautyDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.imgShare:
-                Toast.makeText(BeautyDetailActivity.this, "分享", Toast.LENGTH_SHORT).show();
+                ;
+                WXWebpageObject webpage = new WXWebpageObject();
+                webpage.webpageUrl = "http://www.tngou.net/tnfs/show/" + beautyDetail.getId();
+                WXMediaMessage msg = new WXMediaMessage(webpage);
+                msg.title = beautyDetail.getTitle();
+                msg.description = beautyDetail.getTitle();
+                Bitmap thumb = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+                msg.thumbData = Util.bmpToByteArray(thumb, true);
+
+                SendMessageToWX.Req req = new SendMessageToWX.Req();
+                req.message = msg;
+                req.scene = SendMessageToWX.Req.WXSceneTimeline;
+                MyApp.api.sendReq(req);
+
                 break;
         }
     }

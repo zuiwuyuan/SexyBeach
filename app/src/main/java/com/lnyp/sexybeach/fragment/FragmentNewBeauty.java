@@ -1,4 +1,4 @@
-package com.lnyp.sexybeach.activity;
+package com.lnyp.sexybeach.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.R;
+import com.lnyp.sexybeach.activity.BeautyDetailActivity;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
 import com.lnyp.sexybeach.common.DividerGridItemDecoration;
 import com.lnyp.sexybeach.entry.BeautySimple;
@@ -45,20 +46,9 @@ public class FragmentNewBeauty extends Fragment {
     private View view;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.fragment_new_beauty, (ViewGroup) getActivity().findViewById(R.id.viewPagerProjects), false);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ViewGroup p = (ViewGroup) view.getParent();
-        if (p != null) {
-            p.removeAllViewsInLayout();
-        }
+        View view = inflater.inflate(R.layout.fragment_new_beauty, container, false);
 
         ButterKnife.bind(this, view);
 

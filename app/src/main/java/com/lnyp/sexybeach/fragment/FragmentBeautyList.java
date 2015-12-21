@@ -1,4 +1,4 @@
-package com.lnyp.sexybeach.activity;
+package com.lnyp.sexybeach.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.R;
+import com.lnyp.sexybeach.activity.BeautyDetailActivity;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
 import com.lnyp.sexybeach.common.DividerGridItemDecoration;
 import com.lnyp.sexybeach.entry.BeautySimple;
@@ -51,23 +52,13 @@ public class FragmentBeautyList extends Fragment {
     private boolean hasMore = false;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        id = getArguments().getInt("id");
-
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.fragment_beauty_list, (ViewGroup) getActivity().findViewById(R.id.viewPagerProjects), false);
-    }
-
-    @Override
     public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ViewGroup p = (ViewGroup) view.getParent();
-        if (p != null) {
-            p.removeAllViewsInLayout();
-        }
+        View  view = inflater.inflate(R.layout.fragment_beauty_list, container, false);
+
         ButterKnife.bind(this, view);
+
+        id = getArguments().getInt("id");
 
         mDatas = new ArrayList<>();
 

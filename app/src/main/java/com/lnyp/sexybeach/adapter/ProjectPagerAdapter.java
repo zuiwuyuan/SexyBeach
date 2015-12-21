@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.lnyp.sexybeach.activity.FragmentBeautyList;
-import com.lnyp.sexybeach.activity.FragmentNewBeauty;
+import com.lnyp.sexybeach.fragment.FragmentBeautyList;
+import com.lnyp.sexybeach.fragment.FragmentNewBeauty;
 
 public class ProjectPagerAdapter extends FragmentPagerAdapter {
 
