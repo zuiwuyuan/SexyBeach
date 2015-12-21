@@ -2,6 +2,7 @@ package com.lnyp.sexybeach.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * 美女列表
  */
-public class FragmentBeautyList extends FragmentBase {
+public class FragmentBeautyList extends Fragment {
 
     @Bind(R.id.listViewNewBeauty)
     public SuperRecyclerView listViewNewBeauty;
