@@ -2,56 +2,17 @@ apply plugin: 'com.android.application'
 
 android {
 
-    signingConfigs {
-        designerassist {
-            keyAlias 'zuiwuyuan'
-            keyPassword 'lining521'
-            storeFile file('D:/workspace/zuiwuyuan.jks')
-            storePassword 'lining521'
-        }
-    }
-
-    buildTypes {
-        debug {
-            // 显示Log
-            buildConfigField "boolean", "LOG_DEBUG", "true"
-
-            versionNameSuffix "-debug"
-            minifyEnabled false
-            zipAlignEnabled false
-            shrinkResources false
-            signingConfig signingConfigs.designerassist
-        }
-
-        release {
-            // 不显示Log
-            buildConfigField "boolean", "LOG_DEBUG", "false"
-
-            //混淆
-            minifyEnabled true
-
-            //Zipalign优化
-            zipAlignEnabled true
-
-            // 移除无用的resource文件
-            shrinkResources true
-            //加载默认混淆配置文件
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //签名
-            signingConfig signingConfigs.designerassist
-        }
-    }
-
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.lnyp.sexybeach"
         minSdkVersion 15
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -71,14 +32,16 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:22.2.1'
-//    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.malinskiy:superrecyclerview:1.1.1'
+        compile 'com.android.support:recyclerview-v7:23.1.1'
+//    compile 'com.malinskiy:superrecyclerview:1.1.1'
     compile 'com.inkapplications.viewpageindicator:library:2.4.3'
     compile 'com.apkfuns.logutils:library:1.0.6'
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.squareup.picasso:picasso:2.5.2'
-//    compile 'com.kogitune:pre-lollipop-activity-transition:1.3.0'
+    //    compile 'com.kogitune:pre-lollipop-activity-transition:1.3.0'
+    compile 'com.android.support:appcompat-v7:23.1.1'
+//    compile project(':AnimRefreshRecyclerView')
+    compile 'com.sch.rfview:AnimRefreshRecyclerView:1.0.2@aar'
 }
