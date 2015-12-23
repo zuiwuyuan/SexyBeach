@@ -2,8 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#ffffff"
     android:orientation="vertical"
-   >
+    android:padding="2dp">
 
     <FrameLayout
         android:layout_width="fill_parent"
@@ -14,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="240dp"
             android:adjustViewBounds="true"
-            android:scaleType="fitStart"
+            android:scaleType="centerCrop"
             android:src="@drawable/default_empty_bg" />
 
         <ProgressBar

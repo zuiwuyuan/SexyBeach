@@ -66,6 +66,7 @@ public class FragmentBeautyList extends Fragment {
             listViewBeauties.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
             listViewBeauties.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
 //            listViewBeauties.setArrowImageView(R.drawable.iconfont_downgrey);
+//            listViewBeauties.addItemDecoration(new DividerGridItemDecoration(getActivity()));
 
             listViewBeauties.setLoadingListener(new XRecyclerView.LoadingListener() {
                 @Override
@@ -181,11 +182,9 @@ public class FragmentBeautyList extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
 
-                BeautySimple beautySimple = mDatas.get(position);
+                BeautySimple beautySimple = mDatas.get(position - 1);
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
                 intent.putExtra("beautySimple", beautySimple);
-                LogUtils.e("position : " + position);
-                LogUtils.e("beautySimple : " + beautySimple);
                 startActivity(intent);
 
 //                ActivityTransitionLauncher.with(getActivity()).from(view).launch(intent);

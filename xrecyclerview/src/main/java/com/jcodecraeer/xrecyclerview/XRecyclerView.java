@@ -62,6 +62,7 @@ public class XRecyclerView extends RecyclerView {
         footView.setProgressStyle(mLoadingMoreProgressStyle);
         addFootView(footView);
         mFootViews.get(0).setVisibility(GONE);
+
     }
 
     public void addHeaderView(View view) {

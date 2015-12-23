@@ -60,6 +60,8 @@ public class FragmentNewBeauty extends Fragment {
             listViewNewBeauty.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
 //            listViewBeauties.setArrowImageView(R.drawable.iconfont_downgrey);
 
+//            listViewNewBeauty.addItemDecoration(new DividerGridItemDecoration(getActivity()));
+
             listViewNewBeauty.setLoadingListener(new XRecyclerView.LoadingListener() {
                 @Override
                 public void onRefresh() {
@@ -140,11 +142,9 @@ public class FragmentNewBeauty extends Fragment {
             @Override
             public void onItemClick(View view, int position) {
 
-                BeautySimple beautySimple = mDatas.get(position);
+                BeautySimple beautySimple = mDatas.get(position - 1);
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
-
 //                LogUtils.e("position : " + position + "      beautySimple : " + beautySimple);
-
                 intent.putExtra("beautySimple", beautySimple);
                 startActivity(intent);
             }

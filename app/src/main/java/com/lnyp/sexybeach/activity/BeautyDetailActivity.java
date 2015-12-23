@@ -57,8 +57,6 @@ public class BeautyDetailActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-//        ActivityTransition.with(getIntent()).to(imgCover).start(savedInstanceState);
-
         applyKitKatTranslucency();
 
         BeautySimple beautySimple = (BeautySimple) getIntent().getSerializableExtra("beautySimple");
@@ -105,7 +103,10 @@ public class BeautyDetailActivity extends BaseActivity {
      */
     private void updateData() {
 
-        ImageLoaderUtil.getInstance().displayListItemImage(Const.BASE_IMG_URL2 + beautyDetail.getImg(), imgCover, new ImageLoadingListener() {
+        String imgUrl = Const.BASE_IMG_URL2 + beautyDetail.getImg();
+        LogUtils.e("imgUrl : " + imgUrl);
+        LogUtils.e("imgCover : " + imgCover);
+        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, imgCover, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String s, View view) {
 
