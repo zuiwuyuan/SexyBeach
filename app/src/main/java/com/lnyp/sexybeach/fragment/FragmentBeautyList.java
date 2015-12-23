@@ -1,15 +1,16 @@
 package com.lnyp.sexybeach.fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.apkfuns.logutils.LogUtils;
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.activity.BeautyDetailActivity;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
@@ -19,8 +20,6 @@ import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.rspdata.RspBeautySimple;
 import com.lnyp.sexybeach.util.FastJsonUtil;
 import com.loopj.android.http.RequestParams;
-import com.sch.rfview.AnimRFRecyclerView;
-import com.sch.rfview.manager.AnimRFGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,13 +33,11 @@ import butterknife.ButterKnife;
 public class FragmentBeautyList extends Fragment {
 
     @Bind(R.id.listViewBeauties)
-    public AnimRFRecyclerView listViewBeauties;
+    public XRecyclerView listViewBeauties;
 
     private BeautyGrilListAdapter mAdapter;
 
     private List<BeautySimple> mDatas;
-
-    private View view;
 
     private int page = 1;
 
@@ -52,84 +49,53 @@ public class FragmentBeautyList extends Fragment {
 
     private boolean isRefresh = false;
 
+    private View view;
+
     @Override
     public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_beauty_list, container, false);
+        if (null == view) {
+            view = inflater.inflate(R.layout.fragment_beauty_list, container, false);
+            ButterKnife.bind(this, view);
 
-        ButterKnife.bind(this, view);
+            id = getArguments().getInt("id");
 
-        id = getArguments().getInt("id");
+            GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+            listViewBeauties.setLayoutManager(layoutManager);
 
-        mDatas = new ArrayList<>();
+            listViewBeauties.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
+            listViewBeauties.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
+//            listViewBeauties.setArrowImageView(R.drawable.iconfont_downgrey);
 
-//        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        listViewBeauties.setLayoutManager(layoutManager);
-//        listViewBeauties.addItemDecoration(new DividerGridItemDecoration(getActivity()));
+            listViewBeauties.setLoadingListener(new XRecyclerView.LoadingListener() {
+                @Override
+                public void onRefresh() {
 
-//        // 加载更多
-//        listViewBeauties.setupMoreListener(new OnMoreListener() {
-//            @Override
-//            public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
-//
-//                if (hasMore) {
-//                    getBeauties();
-//                } else {
-//                    listViewBeauties.hideMoreProgress();
-//                }
-//            }
-//        }, 1);
-
-        View headerView = inflater.inflate(R.layout.header_view, container, false);
-        View footerView = inflater.inflate(R.layout.footer_view, container, false);
-
-
-        // 使用重写后的格子布局管理器
-        listViewBeauties.setLayoutManager(new AnimRFGridLayoutManager(getActivity(), 2));
-        // 添加头部和脚部，如果不添加就使用默认的头部和脚部
-        listViewBeauties.addHeaderView(headerView);
-        // 设置头部的最大拉伸倍率，默认1.5f，必须写在setHeaderImage()之前
-        listViewBeauties.setScaleRatio(1.7f);
-        // 设置下拉时拉伸的图片，不设置就使用默认的
-        listViewBeauties.setHeaderImage((ImageView) headerView.findViewById(R.id.iv_hander));
-        listViewBeauties.addFootView(footerView);
-        // 设置刷新动画的颜色
-        listViewBeauties.setColor(Color.BLUE, Color.GREEN);
-        // 设置头部恢复动画的执行时间，默认500毫秒
-        listViewBeauties.setHeaderImageDurationMillis(300);
-        // 设置拉伸到最高时头部的透明度，默认0.5f
-        listViewBeauties.setHeaderImageMinAlpha(0.6f);
-
-        // 设置适配器
-        mAdapter = new BeautyGrilListAdapter(getActivity(), mDatas);
-        listViewBeauties.setAdapter(mAdapter);
-        onItemClick();
-
-        // 设置刷新和加载更多数据的监听，分别在onRefresh()和onLoadMore()方法中执行刷新和加载更多操作
-        listViewBeauties.setLoadDataListener(new AnimRFRecyclerView.LoadDataListener() {
-            @Override
-            public void onRefresh() {
-//                refreshComplate();
-//                listViewBeauties.refreshComplate();
-                isRefresh = true;
-            }
-
-            @Override
-            public void onLoadMore() {
-
-                if (hasMore) {
+                    isRefresh = true;
                     getBeauties();
-                } else {
-                    loadMoreComplate();
-                    listViewBeauties.loadMoreComplate();
                 }
-            }
-        });
 
+                @Override
+                public void onLoadMore() {
 
-        getBeauties();
+                    if (hasMore) {
+                        getBeauties();
+                    } else {
+                        listViewBeauties.loadMoreComplete();
+                    }
+                }
+            });
 
+            mDatas = new ArrayList<>();
+
+            // 设置适配器
+            mAdapter = new BeautyGrilListAdapter(getActivity(), mDatas);
+            listViewBeauties.setAdapter(mAdapter);
+            onItemClick();
+
+            getBeauties();
+
+        }
         return view;
     }
 
@@ -160,6 +126,10 @@ public class FragmentBeautyList extends Fragment {
                         List<BeautySimple> tngous = rspBeautySimple.getTngou();
 
                         if (tngous != null) {
+
+                            if (isRefresh) {
+                                mDatas.clear();
+                            }
                             mDatas.addAll(tngous);
                             updateData();
 
@@ -175,19 +145,16 @@ public class FragmentBeautyList extends Fragment {
 
                     @Override
                     public void onFailure(Throwable throwable) {
-
+                        listViewBeauties.refreshComplete();
+                        listViewBeauties.loadMoreComplete();
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
-                        if (isRefresh) {
-                            refreshComplate();
-                            listViewBeauties.refreshComplate();
-                        } else {
-                            loadMoreComplate();
-                            listViewBeauties.loadMoreComplate();
-                        }
+
+                        listViewBeauties.refreshComplete();
+                        listViewBeauties.loadMoreComplete();
                     }
                 }
 
@@ -226,12 +193,12 @@ public class FragmentBeautyList extends Fragment {
         });
     }
 
-    public void refreshComplate() {
-        listViewBeauties.getAdapter().notifyDataSetChanged();
-    }
-
-    public void loadMoreComplate() {
-        listViewBeauties.getAdapter().notifyDataSetChanged();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (null != view) {
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
     }
 
 }

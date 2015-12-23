@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AnimRefreshRecyclerView/AnimRefreshRecyclerView.iml" filepath="$PROJECT_DIR$/AnimRefreshRecyclerView/AnimRefreshRecyclerView.iml" />
       <module fileurl="file://$PROJECT_DIR$/SexyBeach.iml" filepath="$PROJECT_DIR$/SexyBeach.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" filepath="$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" />
     </modules>
   </component>
 </project>
