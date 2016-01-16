@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SexyBeach.iml" filepath="$PROJECT_DIR$/SexyBeach.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/meitu/meitu.iml" filepath="$PROJECT_DIR$/meitu/meitu.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pullToRefreshlibrary/pullToRefreshlibrary.iml" filepath="$PROJECT_DIR$/pullToRefreshlibrary/pullToRefreshlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" filepath="$PROJECT_DIR$/xrecyclerview/xrecyclerview.iml" />
     </modules>
   </component>

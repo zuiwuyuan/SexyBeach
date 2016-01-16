@@ -1,1 +1,1 @@
-include ':app', ':xrecyclerview'
+include ':meitu', ':xrecyclerview', ':pullToRefreshlibrary'
