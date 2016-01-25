@@ -1,12 +1,10 @@
 package com.lnyp.sexybeach.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,120 +12,81 @@ import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.common.RecyclableImageView;
 import com.lnyp.sexybeach.entry.BeautySimple;
-import com.squareup.picasso.Picasso;
+import com.lnyp.sexybeach.util.ImageLoaderUtil;
 
 import java.util.List;
 
 /**
  * 图片列表
  */
-public class BeautyGrilListAdapter extends RecyclerView.Adapter<BeautyGrilListAdapter.ImgInfoHolder> {
+public class BeautyGrilListAdapter extends BaseAdapter {
 
-    private Activity context;
-
-    private List<BeautySimple> datas;
+    private Activity mContext;
 
     private LayoutInflater mInflater;
 
-    public interface OnItemClickLitener {
-        void onItemClick(View view, int position);
-    }
-
-    private OnItemClickLitener mOnItemClickLitener;
-
-    public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
-        this.mOnItemClickLitener = mOnItemClickLitener;
-    }
+    private List<BeautySimple> mDatas;
 
     public BeautyGrilListAdapter(Activity context, List<BeautySimple> datas) {
+        mContext = context;
+        mInflater = LayoutInflater.from(mContext);
+        mDatas = datas;
 
-        this.context = context;
-        this.datas = datas;
-        mInflater = LayoutInflater.from(context);
     }
 
     @Override
-    public ImgInfoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ImgInfoHolder holder = new ImgInfoHolder(mInflater.inflate(
-                R.layout.list_item_beauty_gril, parent, false));
-        return holder;
+    public int getCount() {
+        return (mDatas != null ? mDatas.size() : 0);
     }
 
     @Override
-    public void onBindViewHolder(final ImgInfoHolder holder, int position) {
+    public Object getItem(int position) {
+        return (mDatas != null ? mDatas.get(position) : null);
+    }
 
-        holder.textClasifyTitle.setText(datas.get(position).getTitle());
-//        String imgUrl = Const.BASE_IMG_URL1 + datas.get(position).getImg() + "_800x600";
-        String imgUrl = Const.BASE_IMG_URL2 + datas.get(position).getImg();
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-//        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, null);
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder = null;
+        if (convertView == null) {
+            // 下拉项布局
+            convertView = mInflater.inflate(R.layout.list_item_beauty_gril, null);
 
-//        final ImgInfoHolder finalHolder = holder;
-//        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, new ImageLoadingListener() {
-//            @Override
-//            public void onLoadingStarted(String s, View view) {
-//                finalHolder.loading.setVisibility(View.VISIBLE);
-//            }
-//
-//            @Override
-//            public void onLoadingFailed(String s, View view, FailReason failReason) {
-//                finalHolder.loading.setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-//                finalHolder.loading.setVisibility(View.GONE);
-//            }
-//
-//            @Override
-//            public void onLoadingCancelled(String s, View view) {
-//
-//            }
-//        }, null);
+            holder = new ViewHolder();
 
-        Picasso.with(holder.imgBeautyGril.getContext())
-                .load(imgUrl)
-                .placeholder(R.drawable.default_empty_bg)
-                .error(R.drawable.default_empty_bg)
-                .resize(dp2px(200), dp2px(240))
-                .config(Bitmap.Config.RGB_565)
-//                .centerCrop()
-                .into(holder.imgBeautyGril);
+            holder.imgBeautyGril = (RecyclableImageView) convertView.findViewById(R.id.imgBeautyGril);
+            holder.loading = (ProgressBar) convertView.findViewById(R.id.loading);
+            holder.textClasifyTitle = (TextView) convertView.findViewById(R.id.textClasifyTitle);
 
-        // 如果设置了回调，则设置点击事件
-        if (mOnItemClickLitener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = holder.getLayoutPosition();
-                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
-                }
-            });
+            convertView.setTag(holder);
+
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
+
+        BeautySimple beautySimple = mDatas.get(position);
+
+        if (beautySimple != null) {
+            holder.textClasifyTitle.setText(beautySimple.getTitle());
+//        String imgUrl = Const.BASE_IMG_URL1 + datas.get(position).getImg() + "_800x600";
+            String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
+
+            ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, null);
+        }
+
+        return convertView;
     }
 
-    @Override
-    public int getItemCount() {
-        return datas.size();
-    }
-
-    public class ImgInfoHolder extends RecyclerView.ViewHolder {
+    class ViewHolder {
 
         RecyclableImageView imgBeautyGril;
+
         TextView textClasifyTitle;
 
         ProgressBar loading;
-
-        public ImgInfoHolder(View itemView) {
-            super(itemView);
-            imgBeautyGril = (RecyclableImageView) itemView.findViewById(R.id.imgBeautyGril);
-            textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
-            loading = (ProgressBar) itemView.findViewById(R.id.loading);
-        }
-    }
-
-    private int dp2px(int dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-                context.getResources().getDisplayMetrics());
     }
 }

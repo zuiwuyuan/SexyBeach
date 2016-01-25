@@ -9,16 +9,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/meitu" />
-            <option value="$PROJECT_DIR$/pullToRefreshlibrary" />
-            <option value="$PROJECT_DIR$/xrecyclerview" />
+            <option value="$PROJECT_DIR$/pulltorefresh" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/meitu" />
-            <option value="$PROJECT_DIR$/pullToRefreshlibrary" />
-            <option value="$PROJECT_DIR$/xrecyclerview" />
+            <option value="$PROJECT_DIR$/pulltorefresh" />
           </set>
         </option>
       </GradleProjectSettings>

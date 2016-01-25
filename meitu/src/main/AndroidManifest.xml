@@ -38,10 +38,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.BeautyListActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/activityAnimationTheme" />
-        <activity
             android:name=".activity.BeautyDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activityAnimationTheme" />

@@ -13,10 +13,9 @@ import android.widget.LinearLayout;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.ListEntity;
+import com.lnyp.sexybeach.util.ImageLoaderUtil;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,99 +25,87 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class ImgBrowsePagerAdapter extends PagerAdapter {
 
-  List<ListEntity> imgs;
+    List<ListEntity> imgs;
 
-  List<View> views;
+    List<View> views;
 
-  Activity mContext;
+    Activity mContext;
 
-  private int width;
+    private DisplayImageOptions mListItemOptions;
 
-  private int height;
+    public ImgBrowsePagerAdapter(Activity context, List<ListEntity> imgs) {
 
-  private DisplayImageOptions mListItemOptions;
+        this.mContext = context;
+        this.imgs = imgs;
 
-  public ImgBrowsePagerAdapter(Activity context, List<ListEntity> imgs) {
+        this.views = new ArrayList<View>();
 
-    this.mContext = context;
-    this.imgs = imgs;
+        DisplayMetrics dm = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-    this.views = new ArrayList<View>();
+        mListItemOptions = new DisplayImageOptions.Builder()
+                // 设置图片Uri为空或是错误的时候显示的图片
+                .showImageForEmptyUri(R.drawable.default_empty_bg)
+                .showImageOnLoading(R.drawable.default_empty_bg)
+                // 设置图片加载/解码过程中错误时候显示的图片
+                .showImageOnFail(R.drawable.default_empty_bg)
+                // 加载图片时会在内存、磁盘中加载缓存
+                .cacheInMemory(false)
+                .cacheOnDisk(false)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .build();
+    }
 
-    DisplayMetrics dm = new DisplayMetrics();
-    context.getWindowManager().getDefaultDisplay().getMetrics(dm);
+    @Override
+    public int getCount() { // 获得size
+        return imgs.size();
+    }
 
-    width = dm.widthPixels;
-    height = dm.heightPixels;
+    @Override
+    public boolean isViewFromObject(View arg0, Object arg1) {
+        return arg0 == arg1;
+    }
 
-    mListItemOptions = new DisplayImageOptions.Builder()
-        // 设置图片Uri为空或是错误的时候显示的图片
-        .showImageForEmptyUri(R.drawable.default_empty_bg)
-        .showImageOnLoading(R.drawable.default_empty_bg)
-        // 设置图片加载/解码过程中错误时候显示的图片
-        .showImageOnFail(R.drawable.default_empty_bg)
-        // 加载图片时会在内存、磁盘中加载缓存
-        .cacheInMemory(false)
-        .cacheOnDisk(false)
-        .imageScaleType(ImageScaleType.EXACTLY)
-        .bitmapConfig(Bitmap.Config.RGB_565)
-        .build();
-  }
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
 
-  @Override public int getCount() { // 获得size
-    return imgs.size();
-  }
+        ((ViewPager) container).removeView((View) object);
+    }
 
-  @Override public boolean isViewFromObject(View arg0, Object arg1) {
-    return arg0 == arg1;
-  }
+    @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        String imgUrl = Const.BASE_IMG_URL2 + imgs.get(position).getSrc();
 
-  @Override public void destroyItem(ViewGroup container, int position, Object object) {
+        LinearLayout view =
+                (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
+        final PhotoView img = (PhotoView) view.findViewById(R.id.photoViewImg);
 
-    ((ViewPager) container).removeView((View) object);
-  }
+        img.setTag(imgUrl);
+        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, img, mListItemOptions);
 
-  @Override public Object instantiateItem(ViewGroup container, int position) {
-    String imgUrl = Const.BASE_IMG_URL2 + imgs.get(position).getSrc();
 
-    //        LogUtils.e("imgUrl ; " + imgUrl);
+        img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float x, float y) {
+            }
+        });
+        img.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+            @Override
+            public void onViewTap(View view, float x, float y) {
 
-    LinearLayout view =
-        (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
-    final PhotoView img = (PhotoView) view.findViewById(R.id.photoViewImg);
+                mContext.finish();
+            }
+        });
+        img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float x, float y) {
+                mContext.finish();
+            }
+        });
 
-    //        img.setMaxWidth(width);
-    //        img.setMaxHeight((int) (width * 3));// 这里其实可以根据需求而定，我这里测试为最大宽度的3倍
+        ((ViewPager) container).addView(view);
 
-    //        img.setTag(imgUrl);
-    //        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, img, mListItemOptions);
-
-    Picasso.with(mContext)
-        .load(imgUrl)
-        //                .config(Bitmap.Config.RGB_565)
-        .placeholder(R.drawable.default_empty_bg)
-        .error(R.drawable.default_empty_bg)
-        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
-        .into(img);
-
-    img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-      @Override public void onPhotoTap(View view, float x, float y) {
-      }
-    });
-    img.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
-      @Override public void onViewTap(View view, float x, float y) {
-
-        mContext.finish();
-      }
-    });
-    img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-      @Override public void onPhotoTap(View view, float x, float y) {
-        mContext.finish();
-      }
-    });
-
-    ((ViewPager) container).addView(view);
-
-    return view;
-  }
+        return view;
+    }
 }

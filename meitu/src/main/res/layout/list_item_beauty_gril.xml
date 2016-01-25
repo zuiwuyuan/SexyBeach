@@ -13,7 +13,7 @@
         <com.lnyp.sexybeach.common.RecyclableImageView
             android:id="@+id/imgBeautyGril"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="500dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/default_empty_bg" />

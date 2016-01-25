@@ -3,14 +3,15 @@ package com.lnyp.sexybeach.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.apkfuns.logutils.LogUtils;
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
-import com.jcodecraeer.xrecyclerview.XRecyclerView;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.activity.BeautyDetailActivity;
 import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
@@ -19,7 +20,9 @@ import com.lnyp.sexybeach.http.HttpUtil;
 import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.rspdata.RspBeautySimple;
 import com.lnyp.sexybeach.util.FastJsonUtil;
+import com.lnyp.sexybeach.util.ImageLoaderUtil;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +36,7 @@ import butterknife.ButterKnife;
 public class FragmentBeautyList extends Fragment {
 
     @Bind(R.id.listViewBeauties)
-    public XRecyclerView listViewBeauties;
+    public PullToRefreshListView listViewBeauties;
 
     private BeautyGrilListAdapter mAdapter;
 
@@ -57,47 +60,50 @@ public class FragmentBeautyList extends Fragment {
         if (null == view) {
             view = inflater.inflate(R.layout.fragment_beauty_list, container, false);
             ButterKnife.bind(this, view);
-
-            id = getArguments().getInt("id");
-
-            GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
-            listViewBeauties.setLayoutManager(layoutManager);
-
-            listViewBeauties.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
-            listViewBeauties.setLaodingMoreProgressStyle(ProgressStyle.BallRotate);
-//            listViewBeauties.setArrowImageView(R.drawable.iconfont_downgrey);
-//            listViewBeauties.addItemDecoration(new DividerGridItemDecoration(getActivity()));
-
-            listViewBeauties.setLoadingListener(new XRecyclerView.LoadingListener() {
-                @Override
-                public void onRefresh() {
-
-                    isRefresh = true;
-                    getBeauties();
-                }
-
-                @Override
-                public void onLoadMore() {
-
-                    if (hasMore) {
-                        getBeauties();
-                    } else {
-                        listViewBeauties.loadMoreComplete();
-                    }
-                }
-            });
-
-            mDatas = new ArrayList<>();
-
-            // 设置适配器
-            mAdapter = new BeautyGrilListAdapter(getActivity(), mDatas);
-            listViewBeauties.setAdapter(mAdapter);
-            onItemClick();
-
-            getBeauties();
-
         }
+
+        id = getArguments().getInt("id");
+
+        initView();
+
+        getBeauties();
+
         return view;
+    }
+
+    private void initView() {
+
+        listViewBeauties.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                isRefresh = true;
+                page = 1;
+                getBeauties();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                if (hasMore) {
+                    isRefresh = false;
+                    getBeauties();
+                } else {
+                    listViewBeauties.onRefreshComplete();
+                }
+            }
+
+        });
+
+        ListView actualListView = listViewBeauties.getRefreshableView();
+        actualListView.setOnScrollListener(new PauseOnScrollListener(ImageLoaderUtil.getInstance().getImageLoader(), false, true));
+        actualListView.setOnItemClickListener(new OnItemClickHander());
+
+        mDatas = new ArrayList<>();
+        // 设置适配器
+        mAdapter = new BeautyGrilListAdapter(getActivity(), mDatas);
+        listViewBeauties.setAdapter(mAdapter);
+
     }
 
 
@@ -146,51 +152,37 @@ public class FragmentBeautyList extends Fragment {
 
                     @Override
                     public void onFailure(Throwable throwable) {
-                        listViewBeauties.refreshComplete();
-                        listViewBeauties.loadMoreComplete();
+                        listViewBeauties.onRefreshComplete();
                     }
 
                     @Override
                     public void onFinish() {
                         super.onFinish();
-
-                        listViewBeauties.refreshComplete();
-                        listViewBeauties.loadMoreComplete();
+                        listViewBeauties.onRefreshComplete();
                     }
                 }
-
         );
     }
 
     private void updateData() {
-//        if (mAdapter == null) {
-//            mAdapter = new BeautyGrilListAdapter(getActivity(), mDatas);
-//            listViewBeauties.setAdapter(mAdapter);
-//
-//            onItemClick();
-//        } else {
         mAdapter.notifyDataSetChanged();
-//        }
     }
 
-    /**
-     * 点击事件
-     */
-    private void onItemClick() {
 
-        mAdapter.setOnItemClickLitener(new BeautyGrilListAdapter.OnItemClickLitener() {
-            @Override
-            public void onItemClick(View view, int position) {
+    class OnItemClickHander implements AdapterView.OnItemClickListener {
 
-                BeautySimple beautySimple = mDatas.get(position - 1);
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            BeautySimple beautySimple = (BeautySimple) parent.getAdapter().getItem(
+                    position);
+            if (beautySimple != null) {
                 Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
                 intent.putExtra("beautySimple", beautySimple);
                 startActivity(intent);
-
-//                ActivityTransitionLauncher.with(getActivity()).from(view).launch(intent);
             }
-        });
+        }
     }
+
 
     @Override
     public void onDestroyView() {

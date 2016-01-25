@@ -1,25 +1,32 @@
-<!--
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <com.jingchen.pulltorefresh.PullableRecyclerView
+   <!-- <com.jingchen.pulltorefresh.PullableRecyclerView
         android:id="@+id/listViewBeauties"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />-->
 
-</LinearLayout>-->
-<com.jingchen.pulltorefresh.PullToRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/refresh_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF" >
+   <com.handmark.pulltorefresh.library.PullToRefreshListView
+       android:id="@+id/listViewBeauties"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+       android:layout_marginLeft="6dp"
+       android:layout_marginRight="6dp"
+       android:cacheColorHint="#00000000"
+       android:footerDividersEnabled="true"
+       android:headerDividersEnabled="false"
+       android:orientation="vertical"
+       android:scrollbars="none"
+       ptr:ptrHeaderBackground="#f5f5f5"
+       ptr:ptrHeaderSubTextColor="#aaaaaa"
+       ptr:ptrHeaderTextAppearance="@color/vpi__background_holo_light"
+       ptr:ptrHeaderTextColor="#aaaaaa"
+       ptr:ptrMode="both"
 
-    <com.jingchen.pulltorefresh.PullableRecyclerView
-        android:id="@+id/listViewBeauties"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+       />
 
-</com.jingchen.pulltorefresh.PullToRefreshLayout>
+</LinearLayout>

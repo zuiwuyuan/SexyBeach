@@ -1,1 +1,2 @@
-include ':meitu', ':xrecyclerview', ':pullToRefreshlibrary'
+include ':meitu'
+include ':pulltorefresh'
