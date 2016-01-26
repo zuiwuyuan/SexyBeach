@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/baidu/project/LogUtils/library/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">library</string>
+    <string name="cancel">取消</string>
+    <string name="copy">复制</string>
+    <string name="success_copy">已经复制到剪切板</string>
+    <string name="sure">确定</string>
+</resources>

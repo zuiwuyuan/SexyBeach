@@ -1,0 +1,154 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:2:1-65:12
+	xmlns:android
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:2:11-69
+	package
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:3:5-33
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:6:5-67
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:8:5-80
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:8:22-77
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:10:5-84
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:10:22-81
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:12:5-81
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:12:22-78
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:14:5-81
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:14:22-78
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:16:5-79
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:16:22-76
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:18:5-79
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:18:22-76
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:20:5-76
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:20:22-73
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:22:5-76
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:22:22-73
+application
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:24:5-63:19
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.apkfuns.logutils:library:1.0.6] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.apkfuns.logutils\library\1.0.6\AndroidManifest.xml:11:5-12:19
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.jcodecraeer:xrecyclerview:1.2.6] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.jcodecraeer\xrecyclerview\1.2.6\AndroidManifest.xml:11:5-20
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:22:5-20
+	android:supportsRtl
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:29:9-35
+	android:label
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:28:9-41
+	android:allowBackup
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:26:9-35
+	android:icon
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:27:9-45
+	android:theme
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:30:9-40
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:25:9-30
+activity#com.lnyp.sexybeach.activity.SplashActivity
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:31:9-39:20
+	android:theme
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:33:13-58
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:32:13-52
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:34:13-38:29
+action#android.intent.action.MAIN
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:35:17-69
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:35:25-66
+category#android.intent.category.LAUNCHER
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:37:17-77
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:37:27-74
+activity#com.lnyp.sexybeach.activity.BeautyListActivity
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:40:9-43:61
+	android:screenOrientation
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:42:13-49
+	android:theme
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:43:13-58
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:41:13-56
+activity#com.lnyp.sexybeach.activity.BeautyDetailActivity
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:44:9-47:61
+	android:screenOrientation
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:46:13-49
+	android:theme
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:47:13-58
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:45:13-58
+activity#com.lnyp.sexybeach.activity.MainActivity
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:48:9-51:55
+	android:screenOrientation
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:50:13-49
+	android:theme
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:51:13-52
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:49:13-50
+activity#com.lnyp.sexybeach.activity.ImageBrowseActivity
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:52:9-56:61
+	android:screenOrientation
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:55:13-49
+	android:theme
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:56:13-58
+	android:process
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:54:13-39
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:53:13-57
+activity#com.lnyp.sexybeach.wxapi.WXEntryActivity
+ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:58:9-62:46
+	android:label
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:61:13-45
+	android:exported
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:60:13-36
+	android:name
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:59:13-50
+	android:launchMode
+		ADDED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml:62:13-43
+uses-sdk
+INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.inkapplications.viewpageindicator:library:2.4.3] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.inkapplications.viewpageindicator\library\2.4.3\AndroidManifest.xml:3:5-72
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.apkfuns.logutils:library:1.0.6] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.apkfuns.logutils\library\1.0.6\AndroidManifest.xml:7:5-9:41
+MERGED from [com.commit451:PhotoView:1.2.4] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.commit451\PhotoView\1.2.4\AndroidManifest.xml:8:5-10:41
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.jcodecraeer:xrecyclerview:1.2.6] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.jcodecraeer\xrecyclerview\1.2.6\AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:23.1.0] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.1.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:23.1.1] D:\workspace\github\SexyBeach\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
+	android:targetSdkVersion
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml
+		INJECTED from D:\workspace\github\SexyBeach\app\src\main\AndroidManifest.xml

@@ -1,0 +1,8 @@
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\lnyp\sexybeach\fragment\FragmentNewBeauty$1$override.class
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\lnyp\sexybeach\fragment\FragmentBeautyList$override.class
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\lnyp\sexybeach\fragment\FragmentNewBeauty$override.class
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\lnyp\sexybeach\fragment\FragmentNewBeauty$2$override.class
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\lnyp\sexybeach\fragment\FragmentBeautyList$1$override.class
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\lnyp\sexybeach\fragment\FragmentBeautyList$2$override.class
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\lnyp\sexybeach\fragment\FragmentBeautyList$3$override.class
+D:\workspace\github\SexyBeach\app\build\intermediates\transforms\instantRun\debug\folders\4000\1\enhanced\com\android\build\gradle\internal\incremental\AppPatchesLoaderImpl.class
