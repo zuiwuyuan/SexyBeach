@@ -77,19 +77,12 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         String imgUrl = Const.BASE_IMG_URL2 + imgs.get(position).getSrc();
 
-        LinearLayout view =
-                (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
+        LinearLayout view = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
         final PhotoView img = (PhotoView) view.findViewById(R.id.photoViewImg);
 
         img.setTag(imgUrl);
         ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, img, mListItemOptions);
 
-
-        img.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(View view, float x, float y) {
-            }
-        });
         img.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
             public void onViewTap(View view, float x, float y) {

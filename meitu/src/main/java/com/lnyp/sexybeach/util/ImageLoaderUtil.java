@@ -71,7 +71,7 @@ public class ImageLoaderUtil {
                 .diskCacheSize(500 * 1024 * 1024)
                 .diskCache(new UnlimitedDiskCache(cacheDir)) // default
                 .imageDownloader(new BaseImageDownloader(context, 5 * 1000, 30 * 1000)) // connectTimeout (5 s), readTimeout (30 s)超时时间
-//                .writeDebugLogs()
+                .writeDebugLogs()
                 .build();
 
         ImageLoader.getInstance().init(config);
