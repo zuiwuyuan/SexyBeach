@@ -1,14 +1,14 @@
 [
     {
-        "merged": "D:\\workspace\\github\\SexyBeach\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\indicator_arrow.png",
-        "source": "D:\\workspace\\github\\SexyBeach\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\indicator_arrow.png"
+        "merged": "D:\\workspace\\gitself\\SexyBeach\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
+        "source": "D:\\workspace\\gitself\\SexyBeach\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
     },
     {
-        "merged": "D:\\workspace\\github\\SexyBeach\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_rotate.png",
-        "source": "D:\\workspace\\github\\SexyBeach\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_rotate.png"
+        "merged": "D:\\workspace\\gitself\\SexyBeach\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\indicator_arrow.png",
+        "source": "D:\\workspace\\gitself\\SexyBeach\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\indicator_arrow.png"
     },
     {
-        "merged": "D:\\workspace\\github\\SexyBeach\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_flip.png",
-        "source": "D:\\workspace\\github\\SexyBeach\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_flip.png"
+        "merged": "D:\\workspace\\gitself\\SexyBeach\\pulltorefresh\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\default_ptr_flip.png",
+        "source": "D:\\workspace\\gitself\\SexyBeach\\pulltorefresh\\build\\intermediates\\bundles\\debug\\res\\drawable-hdpi-v4\\default_ptr_flip.png"
     }
 ]

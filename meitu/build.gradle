@@ -39,4 +39,5 @@ dependencies {
     compile 'com.commit451:PhotoView:1.2.4'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile project(':pulltorefresh')
+    compile 'com.alibaba:fastjson:1.2.7'
 }

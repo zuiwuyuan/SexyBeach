@@ -155,7 +155,7 @@ public class BeautyDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.imgShare:
-                ;
+
                 WXWebpageObject webpage = new WXWebpageObject();
                 webpage.webpageUrl = "http://www.tngou.net/tnfs/show/" + beautyDetail.getId();
                 WXMediaMessage msg = new WXMediaMessage(webpage);
