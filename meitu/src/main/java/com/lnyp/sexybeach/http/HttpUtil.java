@@ -3,7 +3,6 @@ package com.lnyp.sexybeach.http;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.apkfuns.logutils.LogUtils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 
@@ -21,7 +20,7 @@ public class HttpUtil {
 
     public static void getReq(Context context, String url, RequestParams requestParams, ResponseHandler responseHandler) {
 
-        LogUtils.e("url : " + url);
+//        LogUtils.e("url : " + url);
         client.get(context, url, requestParams, responseHandler);
     }
 

@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/meitu" />
             <option value="$PROJECT_DIR$/pulltorefresh" />
+            <option value="$PROJECT_DIR$/recyclerviewlibrary" />
           </set>
         </option>
         <option name="myModules">
@@ -20,6 +21,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/meitu" />
             <option value="$PROJECT_DIR$/pulltorefresh" />
+            <option value="$PROJECT_DIR$/recyclerviewlibrary" />
           </set>
         </option>
       </GradleProjectSettings>
