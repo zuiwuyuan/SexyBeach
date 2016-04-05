@@ -23,6 +23,7 @@ import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.rspdata.RspBeautySimple;
 import com.lnyp.sexybeach.util.FastJsonUtil;
 import com.loopj.android.http.RequestParams;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +99,13 @@ public class FragmentBeautyList1 extends Fragment implements SwipeRefreshLayout.
         listViewBeauties.setAdapter(recyclerViewAdapter);
 
         listViewBeauties.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        listViewBeauties.addItemDecoration(
+                new HorizontalDividerItemDecoration.Builder(getActivity())
+//                        .color(Color.RED)
+                        .sizeResId(R.dimen.list_divider)
+                        .marginResId(R.dimen.list_divider_left_margin, R.dimen.list_divider_right_margin)
+                        .build());
 
         listViewBeauties.addOnScrollListener(mOnScrollListener);
     }

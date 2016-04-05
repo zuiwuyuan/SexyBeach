@@ -41,4 +41,5 @@ dependencies {
     compile project(':pulltorefresh')
     compile 'com.alibaba:fastjson:1.2.7'
     compile project(':recyclerviewlibrary')
+    compile 'com.yqritc:recyclerview-flexibledivider:1.2.9'
 }
