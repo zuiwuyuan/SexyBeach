@@ -1,18 +1,21 @@
 package com.lnyp.sexybeach.adapter;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
-import com.lnyp.sexybeach.common.RecyclableImageView;
 import com.lnyp.sexybeach.entry.BeautySimple;
 import com.lnyp.sexybeach.util.ImageLoaderUtil;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -58,7 +61,7 @@ public class BeautyGrilListAdapter extends BaseAdapter {
 
             holder = new ViewHolder();
 
-            holder.imgBeautyGril = (RecyclableImageView) convertView.findViewById(R.id.imgBeautyGril);
+            holder.imgBeautyGril = (ImageView) convertView.findViewById(R.id.imgBeautyGril);
             holder.loading = (ProgressBar) convertView.findViewById(R.id.loading);
             holder.textClasifyTitle = (TextView) convertView.findViewById(R.id.textClasifyTitle);
 
@@ -72,10 +75,30 @@ public class BeautyGrilListAdapter extends BaseAdapter {
 
         if (beautySimple != null) {
             holder.textClasifyTitle.setText(beautySimple.getTitle());
-//        String imgUrl = Const.BASE_IMG_URL1 + datas.get(position).getImg() + "_800x600";
             String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
 
-            ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, null);
+            final ViewHolder finalHolder = holder;
+            ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, holder.imgBeautyGril, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String s, View view) {
+                    finalHolder.loading.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoadingFailed(String s, View view, FailReason failReason) {
+                    finalHolder.loading.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                    finalHolder.loading.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onLoadingCancelled(String s, View view) {
+
+                }
+            });
         }
 
         return convertView;
@@ -83,7 +106,7 @@ public class BeautyGrilListAdapter extends BaseAdapter {
 
     class ViewHolder {
 
-        RecyclableImageView imgBeautyGril;
+        ImageView imgBeautyGril;
 
         TextView textClasifyTitle;
 

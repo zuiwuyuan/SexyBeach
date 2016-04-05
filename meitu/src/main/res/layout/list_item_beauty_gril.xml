@@ -9,13 +9,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <com.lnyp.sexybeach.common.RecyclableImageView
+
+        <ImageView
             android:id="@+id/imgBeautyGril"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:maxHeight="500dp"
             android:src="@drawable/default_empty_bg" />
 
         <ProgressBar
@@ -25,7 +25,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
-
     </FrameLayout>
 
 
