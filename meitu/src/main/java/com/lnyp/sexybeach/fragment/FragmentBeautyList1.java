@@ -133,27 +133,34 @@ public class FragmentBeautyList1 extends Fragment implements SwipeRefreshLayout.
                     @Override
                     public void onSuccess(String result) {
 //                        LogUtils.e(result);
+                        RspBeautySimple rspBeautySimple = null;
+                        try {
+                            rspBeautySimple = FastJsonUtil.json2T(result, RspBeautySimple.class);
 
-                        RspBeautySimple rspBeautySimple = FastJsonUtil.json2T(result, RspBeautySimple.class);
-                        int total = rspBeautySimple.getTotal();
-                        List<BeautySimple> tngous = rspBeautySimple.getTngou();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-                        if (tngous != null) {
+                        if (rspBeautySimple != null) {
+                            int total = rspBeautySimple.getTotal();
+                            List<BeautySimple> tngous = rspBeautySimple.getTngou();
+                            if (tngous != null) {
 
-                            if (isRefresh) {
-                                mDatas.clear();
-                                isRefresh = false;
+                                if (isRefresh) {
+                                    mDatas.clear();
+                                    isRefresh = false;
+                                }
+                                mDatas.addAll(tngous);
+                                updateData();
+
+                                if (total > mDatas.size()) {
+                                    hasMore = true;
+                                } else {
+                                    hasMore = false;
+                                }
+                                // 判断是否还有更多的数据
+                                page++;
                             }
-                            mDatas.addAll(tngous);
-                            updateData();
-
-                            if (total > mDatas.size()) {
-                                hasMore = true;
-                            } else {
-                                hasMore = false;
-                            }
-                            // 判断是否还有更多的数据
-                            page++;
                         }
                     }
 

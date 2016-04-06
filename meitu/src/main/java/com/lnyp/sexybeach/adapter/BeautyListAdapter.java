@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,10 +28,13 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
     private View.OnClickListener beautySimplesItemOnClick;
 
+    private Context mContext;
+
     public BeautyListAdapter(Context context, List<BeautySimple> beautySimples, View.OnClickListener beautySimplesItemOnClick) {
         mLayoutInflater = LayoutInflater.from(context);
-        this.beautySimples = beautySimples;
 
+        mContext = context;
+        this.beautySimples = beautySimples;
         this.beautySimplesItemOnClick = beautySimplesItemOnClick;
     }
 
@@ -49,23 +54,39 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
         if (beautySimple != null) {
 
             viewHolder.textClasifyTitle.setText(beautySimple.getTitle());
-
             String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
+
+            viewHolder.itemView.setTag(position);
+            viewHolder.itemView.setOnClickListener(beautySimplesItemOnClick);
 
             final ViewHolder finalHolder = viewHolder;
             ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, finalHolder.imgBeautyGril, new ImageLoadingListener() {
                 @Override
                 public void onLoadingStarted(String s, View view) {
+
                     finalHolder.loading.setVisibility(View.VISIBLE);
+
+                    Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.list_item_progress_rotate_anim);
+
+                    finalHolder.loading.startAnimation(animation);
                 }
 
                 @Override
                 public void onLoadingFailed(String s, View view, FailReason failReason) {
+
+                    if (finalHolder.loading.getAnimation() != null) {
+                        finalHolder.loading.clearAnimation();
+                    }
+
                     finalHolder.loading.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+
+                    if (finalHolder.loading.getAnimation() != null) {
+                        finalHolder.loading.clearAnimation();
+                    }
                     finalHolder.loading.setVisibility(View.GONE);
                 }
 

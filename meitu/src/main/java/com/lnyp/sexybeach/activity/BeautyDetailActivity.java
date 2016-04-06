@@ -146,10 +146,12 @@ public class BeautyDetailActivity extends BaseActivity {
 
         switch (view.getId()) {
             case R.id.layoutImgs:
-                Intent intent = new Intent(this, ImageBrowseActivity.class);
+                if (beautyDetail != null) {
+                    Intent intent = new Intent(this, ImageBrowseActivity.class);
+                    intent.putParcelableArrayListExtra("imgs", beautyDetail.getList());
+                    startActivity(intent);
+                }
 
-                intent.putParcelableArrayListExtra("imgs", beautyDetail.getList());
-                startActivity(intent);
                 break;
             case R.id.imgBack:
                 finish();
