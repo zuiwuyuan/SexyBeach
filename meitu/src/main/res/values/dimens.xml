@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="list_divider">4dp</dimen>
+    <dimen name="list_divider">8dp</dimen>
     <dimen name="list_divider_left_margin">0dp</dimen>
     <dimen name="list_divider_right_margin">0dp</dimen>
     

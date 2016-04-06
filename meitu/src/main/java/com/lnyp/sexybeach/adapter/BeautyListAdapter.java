@@ -30,6 +30,8 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
 
+    private int lastPosition = -1;
+
     public BeautyListAdapter(Context context, List<BeautySimple> beautySimples, View.OnClickListener beautySimplesItemOnClick) {
         mLayoutInflater = LayoutInflater.from(context);
 
@@ -58,6 +60,8 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
             viewHolder.itemView.setTag(position);
             viewHolder.itemView.setOnClickListener(beautySimplesItemOnClick);
+
+            setAnimation(viewHolder.itemView,position);
 
             final ViewHolder finalHolder = viewHolder;
             ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, finalHolder.imgBeautyGril, new ImageLoadingListener() {
@@ -116,6 +120,15 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
             imgBeautyGril = (ImageView) itemView.findViewById(R.id.imgBeautyGril);
             textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
             loading = (ProgressBar) itemView.findViewById(R.id.loading);
+        }
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), R
+                    .anim.list_item_bottom_in);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
         }
     }
 }

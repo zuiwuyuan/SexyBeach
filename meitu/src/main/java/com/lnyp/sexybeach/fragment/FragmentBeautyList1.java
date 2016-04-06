@@ -23,6 +23,7 @@ import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.rspdata.RspBeautySimple;
 import com.lnyp.sexybeach.util.FastJsonUtil;
 import com.loopj.android.http.RequestParams;
+import com.victor.loading.rotate.RotateLoading;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -42,6 +43,9 @@ public class FragmentBeautyList1 extends Fragment implements SwipeRefreshLayout.
      * 每一页展示多少条数据
      */
     private static final int REQUEST_COUNT = 10;
+
+    @Bind(R.id.rotateLoading)
+    public RotateLoading rotateLoading;
 
     @Bind(R.id.listViewBeauties)
     public RecyclerView listViewBeauties;
@@ -82,6 +86,7 @@ public class FragmentBeautyList1 extends Fragment implements SwipeRefreshLayout.
 
         initView();
 
+        rotateLoading.start();
         onRefresh();
 
         return view;
@@ -178,7 +183,7 @@ public class FragmentBeautyList1 extends Fragment implements SwipeRefreshLayout.
                         } else {
                             RecyclerViewStateUtils.setFooterViewState(listViewBeauties, LoadingFooter.State.Normal);
                         }
-
+                        rotateLoading.stop();
                         refreshLayout.setRefreshing(false);
                     }
                 }
