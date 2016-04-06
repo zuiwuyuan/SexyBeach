@@ -15,4 +15,4 @@
         android:topLeftRadius="@dimen/indicator_corner_radius"
         android:topRightRadius="@dimen/indicator_corner_radius" />
 
-</shape><!-- From: file:/D:/workspace/github/SexyBeach/pulltorefresh/src/main/res/drawable/indicator_bg_bottom.xml -->
+</shape><!-- From: file:/D:/workspace/gitself/SexyBeach/pulltorefresh/src/main/res/drawable/indicator_bg_bottom.xml -->

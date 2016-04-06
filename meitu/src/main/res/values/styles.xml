@@ -54,7 +54,7 @@
 
     <!--    progeressbar样式，用于加载显示图片进度     -->
     <style name="mProgress_circle">
-        <item name="android:indeterminateDrawable">@drawable/imgloader_progress_img</item>
+        <item name="android:indeterminateDrawable">@drawable/img_loader_progress</item>
         <item name="android:minWidth">25dp</item>
         <item name="android:minHeight">25dp</item>
         <item name="android:maxWidth">60dp</item>

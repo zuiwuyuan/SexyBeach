@@ -19,4 +19,4 @@
     android:duration="@android:integer/config_longAnimTime"
     android:fromYDelta="0"
     android:toYDelta="100%p" />
-<!-- From: file:/D:/workspace/github/SexyBeach/pulltorefresh/src/main/res/anim/slide_out_to_bottom.xml -->
+<!-- From: file:/D:/workspace/gitself/SexyBeach/pulltorefresh/src/main/res/anim/slide_out_to_bottom.xml -->

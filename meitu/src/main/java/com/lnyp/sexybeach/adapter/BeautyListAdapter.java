@@ -70,17 +70,10 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
                     finalHolder.loading.setVisibility(View.VISIBLE);
 
-                    Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.list_item_progress_rotate_anim);
-
-                    finalHolder.loading.startAnimation(animation);
                 }
 
                 @Override
                 public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-                    if (finalHolder.loading.getAnimation() != null) {
-                        finalHolder.loading.clearAnimation();
-                    }
 
                     finalHolder.loading.setVisibility(View.GONE);
                 }
@@ -88,9 +81,6 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onLoadingComplete(String s, View view, Bitmap bitmap) {
 
-                    if (finalHolder.loading.getAnimation() != null) {
-                        finalHolder.loading.clearAnimation();
-                    }
                     finalHolder.loading.setVisibility(View.GONE);
                 }
 
