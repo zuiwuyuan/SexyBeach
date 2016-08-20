@@ -51,8 +51,8 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
         if (beautySimple != null) {
 
-            String imgUrl = Const.BASE_IMG_URL1 + beautySimple.getImg()+"_800";
-//            String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
+//            String imgUrl = Const.BASE_IMG_URL1 + beautySimple.getImg()+"_800";
+            String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
 
             LogUtils.e(imgUrl);
 

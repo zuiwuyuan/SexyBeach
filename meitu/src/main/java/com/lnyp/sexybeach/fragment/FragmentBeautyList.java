@@ -137,7 +137,6 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
 
                     @Override
                     public void onSuccess(String result) {
-//                        LogUtils.e(result);
                         RspBeautySimple rspBeautySimple = null;
                         try {
                             rspBeautySimple = FastJsonUtil.json2T(result, RspBeautySimple.class);
