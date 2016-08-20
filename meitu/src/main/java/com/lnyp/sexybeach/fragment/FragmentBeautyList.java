@@ -2,49 +2,62 @@ package com.lnyp.sexybeach.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 import com.apkfuns.logutils.LogUtils;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
+import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.activity.BeautyDetailActivity;
-import com.lnyp.sexybeach.adapter.BeautyGrilListAdapter;
+import com.lnyp.sexybeach.adapter.BeautyListAdapter;
 import com.lnyp.sexybeach.entry.BeautySimple;
 import com.lnyp.sexybeach.http.HttpUtil;
 import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.rspdata.RspBeautySimple;
 import com.lnyp.sexybeach.util.FastJsonUtil;
-import com.lnyp.sexybeach.util.ImageLoaderUtil;
 import com.loopj.android.http.RequestParams;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
+import com.victor.loading.rotate.RotateLoading;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import weight.LoadingFooter;
+import weight.RecyclerViewStateUtils;
 
 /**
  * 美女列表
  */
-public class FragmentBeautyList extends Fragment {
+public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
+    /**
+     * 每一页展示多少条数据
+     */
+    private static final int REQUEST_COUNT = 10;
+
+    @Bind(R.id.rotateLoading)
+    public RotateLoading rotateLoading;
 
     @Bind(R.id.listViewBeauties)
-    public PullToRefreshListView listViewBeauties;
+    public RecyclerView listViewBeauties;
 
-    private BeautyGrilListAdapter mAdapter;
+    @Bind(R.id.refreshLayout)
+    public SwipeRefreshLayout refreshLayout;
+
+    private HeaderAndFooterRecyclerViewAdapter recyclerViewAdapter;
 
     private List<BeautySimple> mDatas;
 
     private int page = 1;
-
-    private static final int ROWS = 10;
 
     private int id;
 
@@ -52,58 +65,54 @@ public class FragmentBeautyList extends Fragment {
 
     private boolean isRefresh = false;
 
+    private boolean isNetError = false;
+
     private View view;
 
     @Override
-    public android.view.View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        id = getArguments().getInt("id");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         if (null == view) {
             view = inflater.inflate(R.layout.fragment_beauty_list, container, false);
             ButterKnife.bind(this, view);
         }
 
-        id = getArguments().getInt("id");
-
         initView();
 
-        getBeauties();
+        rotateLoading.start();
+        onRefresh();
 
         return view;
     }
 
     private void initView() {
 
-        listViewBeauties.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                isRefresh = true;
-                page = 1;
-                getBeauties();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-
-                if (hasMore) {
-                    isRefresh = false;
-                    getBeauties();
-                } else {
-                    listViewBeauties.onRefreshComplete();
-                }
-            }
-
-        });
-
-        ListView actualListView = listViewBeauties.getRefreshableView();
-        actualListView.setOnScrollListener(new PauseOnScrollListener(ImageLoaderUtil.getInstance().getImageLoader(), false, true));
-        actualListView.setOnItemClickListener(new OnItemClickHander());
+        refreshLayout.setOnRefreshListener(this);
 
         mDatas = new ArrayList<>();
-        // 设置适配器
-        mAdapter = new BeautyGrilListAdapter(getActivity(), mDatas);
-        listViewBeauties.setAdapter(mAdapter);
 
+        BeautyListAdapter beautyListAdapter = new BeautyListAdapter(getActivity(), mDatas, onItemClick);
+
+        recyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(beautyListAdapter);
+        listViewBeauties.setAdapter(recyclerViewAdapter);
+
+        listViewBeauties.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        listViewBeauties.addItemDecoration(
+                new HorizontalDividerItemDecoration.Builder(getActivity())
+//                        .color(Color.RED)
+                        .sizeResId(R.dimen.list_divider_left_margin)
+                        .marginResId(R.dimen.list_divider_left_margin, R.dimen.list_divider_right_margin)
+                        .build());
+
+        listViewBeauties.addOnScrollListener(mOnScrollListener);
     }
 
 
@@ -114,8 +123,10 @@ public class FragmentBeautyList extends Fragment {
 
         RequestParams params = new RequestParams();
         params.put("page", this.page);
-        params.put("rows", ROWS);
+        params.put("rows", REQUEST_COUNT);
         params.put("id", id);
+
+        LogUtils.e(params);
 
         HttpUtil.getReq(getActivity(), "http://www.tngou.net/tnfs/api/list", params, new ResponseHandler(getActivity()) {
 
@@ -126,62 +137,111 @@ public class FragmentBeautyList extends Fragment {
 
                     @Override
                     public void onSuccess(String result) {
-                        LogUtils.e(result);
+//                        LogUtils.e(result);
+                        RspBeautySimple rspBeautySimple = null;
+                        try {
+                            rspBeautySimple = FastJsonUtil.json2T(result, RspBeautySimple.class);
 
-                        RspBeautySimple rspBeautySimple = FastJsonUtil.json2T(result, RspBeautySimple.class);
-                        int total = rspBeautySimple.getTotal();
-                        List<BeautySimple> tngous = rspBeautySimple.getTngou();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-                        if (tngous != null) {
+                        if (rspBeautySimple != null) {
+                            int total = rspBeautySimple.getTotal();
+                            List<BeautySimple> tngous = rspBeautySimple.getTngou();
+                            if (tngous != null) {
 
-                            if (isRefresh) {
-                                mDatas.clear();
-                            }
-                            mDatas.addAll(tngous);
-                            updateData();
+                                if (isRefresh) {
+                                    mDatas.clear();
+                                    isRefresh = false;
+                                }
+                                mDatas.addAll(tngous);
+                                updateData();
 
-                            // 判断是否还有更多的数据
-                            page++;
-                            if (total > mDatas.size()) {
-                                hasMore = true;
-                            } else {
-                                hasMore = false;
+                                if (total > mDatas.size()) {
+                                    hasMore = true;
+                                } else {
+                                    hasMore = false;
+                                }
+                                // 判断是否还有更多的数据
+                                page++;
                             }
                         }
                     }
 
                     @Override
                     public void onFailure(Throwable throwable) {
-                        listViewBeauties.onRefreshComplete();
+                        isNetError = true;
                     }
 
                     @Override
                     public void onFinish() {
-                        super.onFinish();
-                        listViewBeauties.onRefreshComplete();
+
+                        if (isNetError) {
+                            RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.NetWorkError, mFooterClick);
+                            isNetError = false;
+                        } else {
+                            RecyclerViewStateUtils.setFooterViewState(listViewBeauties, LoadingFooter.State.Normal);
+                        }
+                        rotateLoading.stop();
+                        refreshLayout.setRefreshing(false);
                     }
                 }
         );
     }
 
     private void updateData() {
-        mAdapter.notifyDataSetChanged();
+
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
 
-    class OnItemClickHander implements AdapterView.OnItemClickListener {
-
+    private EndlessRecyclerOnScrollListener mOnScrollListener = new EndlessRecyclerOnScrollListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            BeautySimple beautySimple = (BeautySimple) parent.getAdapter().getItem(
-                    position);
-            if (beautySimple != null) {
-                Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
-                intent.putExtra("beautySimple", beautySimple);
-                startActivity(intent);
+        public void onLoadNextPage(View view) {
+            super.onLoadNextPage(view);
+            LoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(listViewBeauties);
+
+            if (state == LoadingFooter.State.Loading) {
+                return;
+            }
+
+            if (hasMore) {
+                RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.Loading, null);
+                getBeauties();
+            } else {
+                RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.TheEnd, null);
             }
         }
-    }
+    };
+
+    private View.OnClickListener mFooterClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.Loading, null);
+            getBeauties();
+        }
+    };
+
+    private View.OnClickListener onItemClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            try {
+                int pos = (int) v.getTag();
+                BeautySimple beautySimple = mDatas.get(pos);
+
+                if (beautySimple != null) {
+                    Intent intent = new Intent(getActivity(), BeautyDetailActivity.class);
+                    intent.putExtra("beautySimple", beautySimple);
+                    startActivity(intent);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
 
     @Override
@@ -192,4 +252,10 @@ public class FragmentBeautyList extends Fragment {
         }
     }
 
+    @Override
+    public void onRefresh() {
+        isRefresh = true;
+        page = 1;
+        getBeauties();
+    }
 }

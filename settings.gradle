@@ -1,2 +1,1 @@
 include ':meitu', ':recyclerviewlibrary'
-include ':pulltorefresh'

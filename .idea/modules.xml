@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SexyBeach.iml" filepath="$PROJECT_DIR$/SexyBeach.iml" />
       <module fileurl="file://$PROJECT_DIR$/meitu/meitu.iml" filepath="$PROJECT_DIR$/meitu/meitu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" filepath="$PROJECT_DIR$/pulltorefresh/pulltorefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/recyclerviewlibrary/recyclerviewlibrary.iml" filepath="$PROJECT_DIR$/recyclerviewlibrary/recyclerviewlibrary.iml" />
     </modules>
   </component>

@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.lnyp.sexybeach.fragment.FragmentBeautyList1;
+import com.lnyp.sexybeach.fragment.FragmentBeautyList;
 
 public class ProjectPagerAdapter extends FragmentPagerAdapter {
 
@@ -22,49 +22,49 @@ public class ProjectPagerAdapter extends FragmentPagerAdapter {
         Bundle bundle;
         switch (position) {
             case 0:
-                fragment = new FragmentBeautyList1();
+                fragment = new FragmentBeautyList();
                 bundle = new Bundle();
                 bundle.putInt("id", 1);
                 fragment.setArguments(bundle);
                 break;
 
             case 1:
-                fragment = new FragmentBeautyList1();
+                fragment = new FragmentBeautyList();
                 bundle = new Bundle();
                 bundle.putInt("id", 2);
                 fragment.setArguments(bundle);
                 break;
 
             case 2:
-                fragment = new FragmentBeautyList1();
+                fragment = new FragmentBeautyList();
                 bundle = new Bundle();
                 bundle.putInt("id", 3);
                 fragment.setArguments(bundle);
                 break;
 
             case 3:
-                fragment = new FragmentBeautyList1();
+                fragment = new FragmentBeautyList();
                 bundle = new Bundle();
                 bundle.putInt("id", 4);
                 fragment.setArguments(bundle);
                 break;
 
             case 4:
-                fragment = new FragmentBeautyList1();
+                fragment = new FragmentBeautyList();
                 bundle = new Bundle();
                 bundle.putInt("id", 5);
                 fragment.setArguments(bundle);
                 break;
 
             case 5:
-                fragment = new FragmentBeautyList1();
+                fragment = new FragmentBeautyList();
                 bundle = new Bundle();
                 bundle.putInt("id", 6);
                 fragment.setArguments(bundle);
                 break;
 
             case 6:
-                fragment = new FragmentBeautyList1();
+                fragment = new FragmentBeautyList();
                 bundle = new Bundle();
                 bundle.putInt("id", 7);
                 fragment.setArguments(bundle);

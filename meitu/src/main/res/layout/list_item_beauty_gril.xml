@@ -5,39 +5,26 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imgBeautyGril"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_empty_bg" />
-
-        <ProgressBar
-            android:id="@+id/loading"
-            style="@style/mProgress_circle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-
-    </FrameLayout>
+    <ImageView
+        android:id="@+id/imgBeautyGril"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/default_empty_bg" />
 
 
     <TextView
         android:id="@+id/textClasifyTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        android:background="@drawable/text_bar_bg"
-        android:gravity="center"
+        android:background="#40000000"
+        android:gravity="center_horizontal|bottom"
+        android:maxLines="2"
         android:padding="6dp"
-        android:singleLine="true"
         android:text="性感美女"
-        android:textColor="#EBEFF2" />
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
 </FrameLayout>

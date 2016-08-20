@@ -1,23 +1,19 @@
 package com.lnyp.sexybeach.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.apkfuns.logutils.LogUtils;
+import com.bumptech.glide.Glide;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautySimple;
-import com.lnyp.sexybeach.util.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -55,40 +51,19 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
         if (beautySimple != null) {
 
+            String imgUrl = Const.BASE_IMG_URL1 + beautySimple.getImg()+"_800";
+//            String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
+
+            LogUtils.e(imgUrl);
+
+            Glide.with(mContext).load(imgUrl).asBitmap().into(viewHolder.imgBeautyGril);
+//            ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, viewHolder.imgBeautyGril);
+
             viewHolder.textClasifyTitle.setText(beautySimple.getTitle());
-            String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
+
 
             viewHolder.itemView.setTag(position);
             viewHolder.itemView.setOnClickListener(beautySimplesItemOnClick);
-
-            setAnimation(viewHolder.itemView,position);
-
-            final ViewHolder finalHolder = viewHolder;
-            ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, finalHolder.imgBeautyGril, new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String s, View view) {
-
-                    finalHolder.loading.setVisibility(View.VISIBLE);
-
-                }
-
-                @Override
-                public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-                    finalHolder.loading.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-
-                    finalHolder.loading.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onLoadingCancelled(String s, View view) {
-
-                }
-            });
         }
     }
 
@@ -109,16 +84,7 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
             super(itemView);
             imgBeautyGril = (ImageView) itemView.findViewById(R.id.imgBeautyGril);
             textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
-            loading = (ProgressBar) itemView.findViewById(R.id.loading);
         }
     }
 
-    private void setAnimation(View viewToAnimate, int position) {
-        if (position > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), R
-                    .anim.list_item_bottom_in);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
-        }
-    }
 }
