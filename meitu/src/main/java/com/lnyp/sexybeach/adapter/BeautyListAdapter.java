@@ -1,35 +1,34 @@
 package com.lnyp.sexybeach.adapter;
 
-import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.apkfuns.logutils.LogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautySimple;
+import com.lnyp.sexybeach.weight.ShowMaxImageView;
 
 import java.util.List;
 
 public class BeautyListAdapter extends RecyclerView.Adapter {
 
     private LayoutInflater mLayoutInflater;
+
     private List<BeautySimple> beautySimples;
 
     private View.OnClickListener beautySimplesItemOnClick;
 
-    private Context mContext;
+    private Fragment mContext;
 
-    private int lastPosition = -1;
-
-    public BeautyListAdapter(Context context, List<BeautySimple> beautySimples, View.OnClickListener beautySimplesItemOnClick) {
-        mLayoutInflater = LayoutInflater.from(context);
+    public BeautyListAdapter(Fragment context, List<BeautySimple> beautySimples, View.OnClickListener beautySimplesItemOnClick) {
+        mLayoutInflater = LayoutInflater.from(context.getActivity());
 
         mContext = context;
         this.beautySimples = beautySimples;
@@ -51,13 +50,11 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
         if (beautySimple != null) {
 
-//            String imgUrl = Const.BASE_IMG_URL1 + beautySimple.getImg()+"_800";
             String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
 
             LogUtils.e(imgUrl);
 
-            Glide.with(mContext).load(imgUrl).asBitmap().into(viewHolder.imgBeautyGril);
-//            ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, viewHolder.imgBeautyGril);
+            Glide.with(mContext).load(imgUrl).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(viewHolder.imgBeautyGril);
 
             viewHolder.textClasifyTitle.setText(beautySimple.getTitle());
 
@@ -74,15 +71,13 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView imgBeautyGril;
+        private ShowMaxImageView imgBeautyGril;
 
         private TextView textClasifyTitle;
 
-        private ProgressBar loading;
-
         public ViewHolder(View itemView) {
             super(itemView);
-            imgBeautyGril = (ImageView) itemView.findViewById(R.id.imgBeautyGril);
+            imgBeautyGril = (ShowMaxImageView) itemView.findViewById(R.id.imgBeautyGril);
             textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
         }
     }

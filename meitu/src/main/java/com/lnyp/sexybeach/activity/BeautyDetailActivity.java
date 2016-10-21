@@ -1,6 +1,5 @@
 package com.lnyp.sexybeach.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,8 +47,6 @@ public class BeautyDetailActivity extends BaseActivity {
 
     private BeautyDetail beautyDetail;
 
-    private ProgressDialog dialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +70,6 @@ public class BeautyDetailActivity extends BaseActivity {
             @Override
             public void onStart() {
                 super.onStart();
-                // 开启弹框
-                //                dialog = ProgressDialog.show(BeautyDetailActivity.this, "", "加载中..");
             }
 
             @Override
@@ -87,13 +82,10 @@ public class BeautyDetailActivity extends BaseActivity {
 
             @Override
             public void onFailure(Throwable throwable) {
-                //关闭弹框
-                //                dialog.dismiss();
             }
 
             @Override
             public void onFinish() {
-                //                dialog.dismiss();
             }
         });
     }
@@ -120,8 +112,6 @@ public class BeautyDetailActivity extends BaseActivity {
 
                     @Override
                     public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                        // 缩放图片
-                        //                Bitmap zoomBitmap = ImageUtil.zoomBitmap(bitmap, 480, 300);
 
                         // 获取倒影图片
                         Bitmap reflectBitmap = ImageUtil.createReflectionImageWithOrigin(bitmap);

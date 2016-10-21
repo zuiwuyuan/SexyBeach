@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import com.apkfuns.logutils.LogUtils;
 import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
-import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.activity.BeautyDetailActivity;
 import com.lnyp.sexybeach.adapter.BeautyListAdapter;
@@ -53,7 +52,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
     @Bind(R.id.refreshLayout)
     public SwipeRefreshLayout refreshLayout;
 
-    private HeaderAndFooterRecyclerViewAdapter recyclerViewAdapter;
+    private BeautyListAdapter beautyListAdapter;
 
     private List<BeautySimple> mDatas;
 
@@ -98,16 +97,14 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
 
         mDatas = new ArrayList<>();
 
-        BeautyListAdapter beautyListAdapter = new BeautyListAdapter(getActivity(), mDatas, onItemClick);
+        beautyListAdapter = new BeautyListAdapter(this, mDatas, onItemClick);
 
-        recyclerViewAdapter = new HeaderAndFooterRecyclerViewAdapter(beautyListAdapter);
-        listViewBeauties.setAdapter(recyclerViewAdapter);
+        listViewBeauties.setAdapter(beautyListAdapter);
 
         listViewBeauties.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         listViewBeauties.addItemDecoration(
                 new HorizontalDividerItemDecoration.Builder(getActivity())
-//                        .color(Color.RED)
                         .sizeResId(R.dimen.list_divider_left_margin)
                         .marginResId(R.dimen.list_divider_left_margin, R.dimen.list_divider_right_margin)
                         .build());
@@ -162,7 +159,6 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
                                 } else {
                                     hasMore = false;
                                 }
-                                // 判断是否还有更多的数据
                                 page++;
                             }
                         }
@@ -182,6 +178,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
                         } else {
                             RecyclerViewStateUtils.setFooterViewState(listViewBeauties, LoadingFooter.State.Normal);
                         }
+
                         rotateLoading.stop();
                         refreshLayout.setRefreshing(false);
                     }
@@ -191,7 +188,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
 
     private void updateData() {
 
-        recyclerViewAdapter.notifyDataSetChanged();
+        beautyListAdapter.notifyDataSetChanged();
     }
 
 
@@ -249,6 +246,8 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
         if (null != view) {
             ((ViewGroup) view.getParent()).removeView(view);
         }
+
+        ButterKnife.unbind(this);
     }
 
     @Override

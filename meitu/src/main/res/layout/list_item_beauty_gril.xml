@@ -5,13 +5,12 @@
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <ImageView
+    <com.lnyp.sexybeach.weight.ShowMaxImageView
         android:id="@+id/imgBeautyGril"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/default_empty_bg" />
+        android:scaleType="centerCrop" />
 
 
     <TextView
@@ -22,9 +21,9 @@
         android:background="#40000000"
         android:gravity="center_horizontal|bottom"
         android:maxLines="2"
-        android:padding="6dp"
+        android:padding="10dp"
         android:text="性感美女"
         android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
 </FrameLayout>

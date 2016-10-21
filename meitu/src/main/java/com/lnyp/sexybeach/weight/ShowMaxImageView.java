@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.lnyp.sexybeach.util.ScreenSizeUtil;
 
 public class ShowMaxImageView extends ImageView {
@@ -90,8 +91,20 @@ public class ShowMaxImageView extends ImageView {
     private Bitmap drawableToBitamp(Drawable drawable) {
 
         if (drawable != null) {
-            BitmapDrawable bd = (BitmapDrawable) drawable;
-            return bd.getBitmap();
+
+            if (drawable instanceof BitmapDrawable) {
+                BitmapDrawable bd = (BitmapDrawable) drawable;
+
+                return bd.getBitmap();
+            }
+
+            if (drawable instanceof GlideBitmapDrawable) {
+                GlideBitmapDrawable bd = (GlideBitmapDrawable) drawable;
+
+                return bd.getBitmap();
+            }
+
+            return null;
         } else {
             return null;
         }
