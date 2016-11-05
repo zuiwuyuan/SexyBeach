@@ -14,8 +14,6 @@ import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautyDetail;
 import com.lnyp.sexybeach.entry.BeautySimple;
-import com.lnyp.sexybeach.http.HttpUtil;
-import com.lnyp.sexybeach.http.ResponseHandler;
 import com.lnyp.sexybeach.util.FastJsonUtil;
 import com.lnyp.sexybeach.util.ImageLoaderUtil;
 import com.lnyp.sexybeach.util.ImageUtil;
@@ -27,9 +25,16 @@ import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * 美女图片详情
@@ -65,29 +70,46 @@ public class BeautyDetailActivity extends BaseActivity {
 
         RequestParams params = new RequestParams();
         params.put("id", id);
-        HttpUtil.getReq(this, "http://www.tngou.net/tnfs/api/show", params, new ResponseHandler(this) {
 
+
+        OkHttpClient client = new OkHttpClient();
+
+        String url = "http://www.tngou.net/tnfs/api/show?" + "id=" + id;
+        LogUtils.e(url);
+        final Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onStart() {
-                super.onStart();
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+
+                BeautyDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateData();
+                    }
+                });
             }
 
             @Override
-            public void onSuccess(String result) {
-                LogUtils.e(result);
+            public void onResponse(Call call, Response response) throws IOException {
+
+                String result = response.body().string();
 
                 beautyDetail = FastJsonUtil.json2T(result, BeautyDetail.class);
-                updateData();
-            }
-
-            @Override
-            public void onFailure(Throwable throwable) {
-            }
-
-            @Override
-            public void onFinish() {
+                if (beautyDetail != null) {
+                    BeautyDetailActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateData();
+                        }
+                    });
+                }
             }
         });
+
     }
 
     /**
