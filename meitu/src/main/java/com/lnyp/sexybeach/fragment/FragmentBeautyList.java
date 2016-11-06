@@ -1,6 +1,7 @@
 package com.lnyp.sexybeach.fragment;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.apkfuns.logutils.LogUtils;
-import com.cundong.recyclerview.EndlessRecyclerOnScrollListener;
-import com.cundong.recyclerview.HeaderAndFooterRecyclerViewAdapter;
-import com.cundong.recyclerview.HeaderSpanSizeLookup;
+import com.lnyp.flexibledivider.GridSpacingItemDecoration;
+import com.lnyp.recyclerview.EndlessRecyclerOnScrollListener;
+import com.lnyp.recyclerview.HeaderAndFooterRecyclerViewAdapter;
+import com.lnyp.recyclerview.HeaderSpanSizeLookup;
+import com.lnyp.recyclerview.RecyclerViewLoadingFooter;
+import com.lnyp.recyclerview.RecyclerViewStateUtils;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.activity.BeautyDetailActivity;
 import com.lnyp.sexybeach.adapter.BeautyListAdapter;
@@ -34,8 +38,6 @@ import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import weight.LoadingFooter;
-import weight.RecyclerViewStateUtils;
 
 /**
  * 美女列表
@@ -45,7 +47,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
     /**
      * 每一页展示多少条数据
      */
-    private static final int REQUEST_COUNT = 10;
+    private static final int REQUEST_COUNT = 20;
 
     @Bind(R.id.rotateLoading)
     public RotateLoading rotateLoading;
@@ -82,8 +84,9 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
 
         if (null == view) {
             view = inflater.inflate(R.layout.fragment_beauty_list, container, false);
-            ButterKnife.bind(this, view);
         }
+
+        ButterKnife.bind(this, view);
 
         initView();
 
@@ -96,7 +99,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
     private void initView() {
 
         refreshLayout.setOnRefreshListener(this);
-
+        listViewBeauties.setHasFixedSize(true); // 设置固定大小
         mDatas = new ArrayList<>();
 
         BeautyListAdapter beautyListAdapter = new BeautyListAdapter(this, mDatas, onItemClick);
@@ -104,8 +107,16 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
         listViewBeauties.setAdapter(mAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
-        gridLayoutManager.setSpanSizeLookup(new HeaderSpanSizeLookup((HeaderAndFooterRecyclerViewAdapter) listViewBeauties.getAdapter(), gridLayoutManager.getSpanCount()));
+        gridLayoutManager.setSpanSizeLookup(new HeaderSpanSizeLookup(listViewBeauties.getAdapter(), gridLayoutManager.getSpanCount()));
         listViewBeauties.setLayoutManager(gridLayoutManager);
+
+        GridSpacingItemDecoration itemDecoration = new GridSpacingItemDecoration.Builder(getActivity(), gridLayoutManager.getSpanCount())
+                .setH_spacing(1)
+                .setV_spacing(1)
+                .setDividerColor(Color.parseColor("#FFFFFF"))
+                .build();
+
+        listViewBeauties.addItemDecoration(itemDecoration);
 
         listViewBeauties.addOnScrollListener(mOnScrollListener);
     }
@@ -115,12 +126,6 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
      * 获取性感美女列表
      */
     private void getBeauties() {
-
-//        RequestParams params = new RequestParams();
-//        params.put("page", this.page);
-//        params.put("rows", REQUEST_COUNT);
-//        params.put("id", id);
-//        LogUtils.e(params);
 
         OkHttpClient client = new OkHttpClient();
 
@@ -139,7 +144,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
                     @Override
                     public void run() {
 
-                        RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.NetWorkError, mFooterClick);
+                        RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, RecyclerViewLoadingFooter.State.NetWorkError, mFooterClick);
 
                         rotateLoading.stop();
                         refreshLayout.setRefreshing(false);
@@ -188,7 +193,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
 
                             updateData();
 
-                            RecyclerViewStateUtils.setFooterViewState(listViewBeauties, LoadingFooter.State.Normal);
+                            RecyclerViewStateUtils.setFooterViewState(listViewBeauties, RecyclerViewLoadingFooter.State.Normal);
 
                             rotateLoading.stop();
                             refreshLayout.setRefreshing(false);
@@ -211,17 +216,17 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
         @Override
         public void onLoadNextPage(View view) {
             super.onLoadNextPage(view);
-            LoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(listViewBeauties);
+            RecyclerViewLoadingFooter.State state = RecyclerViewStateUtils.getFooterViewState(listViewBeauties);
 
-            if (state == LoadingFooter.State.Loading) {
+            if (state == RecyclerViewLoadingFooter.State.Loading) {
                 return;
             }
 
             if (hasMore) {
-                RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.Loading, null);
+                RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, RecyclerViewLoadingFooter.State.Loading, null);
                 getBeauties();
             } else {
-                RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.TheEnd, null);
+                RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, RecyclerViewLoadingFooter.State.TheEnd, null);
             }
         }
     };
@@ -229,7 +234,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
     private View.OnClickListener mFooterClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, LoadingFooter.State.Loading, null);
+            RecyclerViewStateUtils.setFooterViewState(getActivity(), listViewBeauties, REQUEST_COUNT, RecyclerViewLoadingFooter.State.Loading, null);
             getBeauties();
         }
     };
@@ -261,8 +266,6 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
         if (null != view) {
             ((ViewGroup) view.getParent()).removeView(view);
         }
-
-        ButterKnife.unbind(this);
     }
 
     @Override

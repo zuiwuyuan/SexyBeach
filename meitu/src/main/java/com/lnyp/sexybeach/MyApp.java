@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.apkfuns.logutils.LogUtils;
 import com.lnyp.sexybeach.common.Const;
-import com.lnyp.sexybeach.util.ImageLoaderUtil;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
@@ -21,8 +20,6 @@ public class MyApp extends Application {
         api = WXAPIFactory.createWXAPI(this, Const.APP_ID, true);
         // 将该app注册到微信
         api.registerApp(Const.APP_ID);
-
-        ImageLoaderUtil.init(this);
 
         LogUtils.configAllowLog = true;
         LogUtils.configTagPrefix = "sexybeach-";

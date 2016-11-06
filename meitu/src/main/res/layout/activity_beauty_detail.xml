@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    tools:context="com.lnyp.sexybeach.activity.BeautyDetailActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+              android:fitsSystemWindows="true"
+              android:orientation="vertical"
+              tools:context="com.lnyp.sexybeach.activity.BeautyDetailActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:padding="14dp"
-            android:src="@drawable/img_back" />
+            android:src="@drawable/img_back"/>
 
         <ImageView
             android:id="@+id/imgShare"
@@ -28,7 +28,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="14dp"
-            android:src="@drawable/img_share" />
+            android:src="@drawable/img_share"/>
 
     </RelativeLayout>
 
@@ -49,7 +49,7 @@
                 android:padding="10dp"
                 android:text=""
                 android:textColor="#555555"
-                android:textSize="18sp" />
+                android:textSize="18sp"/>
 
             <FrameLayout
                 android:id="@+id/layoutImgs"
@@ -58,14 +58,10 @@
                 android:layout_below="@id/textTitle"
                 android:layout_marginTop="20dp">
 
-                <ImageView
+                <com.lnyp.sexybeach.weight.ShowMaxImageView
                     android:id="@+id/imgCover"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="1000dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/default_empty_bg" />
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/textCount"
@@ -77,7 +73,7 @@
                     android:padding="10dp"
                     android:text="共有10张"
                     android:textColor="#EBEFF2"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </FrameLayout>
         </LinearLayout>
     </ScrollView>

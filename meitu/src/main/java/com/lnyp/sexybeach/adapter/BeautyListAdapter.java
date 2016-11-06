@@ -5,15 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.apkfuns.logutils.LogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautySimple;
-import com.lnyp.sexybeach.weight.ShowMaxImageView;
 
 import java.util.List;
 
@@ -52,12 +51,12 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
             String imgUrl = Const.BASE_IMG_URL2 + beautySimple.getImg();
 
-            LogUtils.e(imgUrl);
+//            LogUtils.e(imgUrl);
 
             Glide.with(mContext).
                     load(imgUrl)
                     .asBitmap()
-                    .override(240, 400)
+                    .override(300, 600)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(viewHolder.imgBeautyGril);
@@ -77,13 +76,13 @@ public class BeautyListAdapter extends RecyclerView.Adapter {
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ShowMaxImageView imgBeautyGril;
+        private ImageView imgBeautyGril;
 
         private TextView textClasifyTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            imgBeautyGril = (ShowMaxImageView) itemView.findViewById(R.id.imgBeautyGril);
+            imgBeautyGril = (ImageView) itemView.findViewById(R.id.imgBeautyGril);
             textClasifyTitle = (TextView) itemView.findViewById(R.id.textClasifyTitle);
         }
     }

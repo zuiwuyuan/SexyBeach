@@ -5,22 +5,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.apkfuns.logutils.LogUtils;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.lnyp.sexybeach.MyApp;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.BeautyDetail;
 import com.lnyp.sexybeach.entry.BeautySimple;
 import com.lnyp.sexybeach.util.FastJsonUtil;
-import com.lnyp.sexybeach.util.ImageLoaderUtil;
-import com.lnyp.sexybeach.util.ImageUtil;
 import com.lnyp.sexybeach.util.Util;
-import com.loopj.android.http.RequestParams;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.lnyp.sexybeach.weight.ShowMaxImageView;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
@@ -42,7 +39,7 @@ import okhttp3.Response;
 public class BeautyDetailActivity extends BaseActivity {
 
     @Bind(R.id.imgCover)
-    public ImageView imgCover;
+    public ShowMaxImageView imgCover;
 
     @Bind(R.id.textCount)
     public TextView textCount;
@@ -67,9 +64,6 @@ public class BeautyDetailActivity extends BaseActivity {
     }
 
     private void getBeautyDetail(int id) {
-
-        RequestParams params = new RequestParams();
-        params.put("id", id);
 
 
         OkHttpClient client = new OkHttpClient();
@@ -118,36 +112,15 @@ public class BeautyDetailActivity extends BaseActivity {
     private void updateData() {
 
         String imgUrl = Const.BASE_IMG_URL2 + beautyDetail.getImg();
-        LogUtils.e("imgUrl : " + imgUrl);
-        LogUtils.e("imgCover : " + imgCover);
-        ImageLoaderUtil.getInstance()
-                .displayListItemImage(imgUrl, imgCover, new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String s, View view) {
 
-                    }
+        Glide.with(this)
+                .load(imgUrl)
+                .asBitmap()
+                .override(720, 1280)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .skipMemoryCache(true)
+                .into(imgCover);
 
-                    @Override
-                    public void onLoadingFailed(String s, View view, FailReason failReason) {
-
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-
-                        // 获取倒影图片
-                        Bitmap reflectBitmap = ImageUtil.createReflectionImageWithOrigin(bitmap);
-
-                        imgCover.setImageBitmap(reflectBitmap);
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String s, View view) {
-
-                    }
-                }, null);
-
-        LogUtils.e(beautyDetail.getList().size());
         textCount.setText("共有" + beautyDetail.getSize() + "张");
 
         textTitle.setText(beautyDetail.getTitle());

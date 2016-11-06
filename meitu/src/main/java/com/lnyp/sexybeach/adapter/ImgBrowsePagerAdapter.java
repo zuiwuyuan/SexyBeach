@@ -1,7 +1,6 @@
 package com.lnyp.sexybeach.adapter;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
@@ -10,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.ListEntity;
-import com.lnyp.sexybeach.util.ImageLoaderUtil;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,30 +28,16 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
 
     Activity mContext;
 
-    private DisplayImageOptions mListItemOptions;
-
     public ImgBrowsePagerAdapter(Activity context, List<ListEntity> imgs) {
 
         this.mContext = context;
         this.imgs = imgs;
 
-        this.views = new ArrayList<View>();
+        this.views = new ArrayList<>();
 
         DisplayMetrics dm = new DisplayMetrics();
         context.getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        mListItemOptions = new DisplayImageOptions.Builder()
-                // 设置图片Uri为空或是错误的时候显示的图片
-                .showImageForEmptyUri(R.drawable.default_empty_bg)
-                .showImageOnLoading(R.drawable.default_empty_bg)
-                // 设置图片加载/解码过程中错误时候显示的图片
-                .showImageOnFail(R.drawable.default_empty_bg)
-                // 加载图片时会在内存、磁盘中加载缓存
-                .cacheInMemory(false)
-                .cacheOnDisk(false)
-                .imageScaleType(ImageScaleType.EXACTLY)
-                .bitmapConfig(Bitmap.Config.RGB_565)
-                .build();
     }
 
     @Override
@@ -80,8 +63,13 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
         LinearLayout view = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
         final PhotoView img = (PhotoView) view.findViewById(R.id.photoViewImg);
 
-        img.setTag(imgUrl);
-        ImageLoaderUtil.getInstance().displayListItemImage(imgUrl, img, mListItemOptions);
+        img.setTag(R.string.app_name, imgUrl);
+
+        Glide.with(mContext)
+                .load(imgUrl)
+                .asBitmap()
+                .centerCrop()
+                .into(img);
 
         img.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
