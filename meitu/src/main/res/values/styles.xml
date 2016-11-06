@@ -10,7 +10,7 @@
 
 
     <!-- 去掉tab顶部的黑边 -->
-    <style name="no_title" parent="@android:style/Theme.Holo.Light.NoActionBar">
+    <style name="no_title" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="android:listDivider">@drawable/divider_bg</item>
         <item name="android:windowContentOverlay">@null</item>

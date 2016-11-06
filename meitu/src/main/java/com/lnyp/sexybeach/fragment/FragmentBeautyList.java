@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.apkfuns.logutils.LogUtils;
 import com.lnyp.flexibledivider.GridSpacingItemDecoration;
 import com.lnyp.recyclerview.EndlessRecyclerOnScrollListener;
 import com.lnyp.recyclerview.HeaderAndFooterRecyclerViewAdapter;
@@ -130,7 +129,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
         OkHttpClient client = new OkHttpClient();
 
         String url = "http://www.tngou.net/tnfs/api/list?" + "page=" + page + "&rows=" + REQUEST_COUNT + "&id=" + id;
-        LogUtils.e(url);
+//        LogUtils.e(url);
         final Request request = new Request.Builder()
                 .url(url)
                 .build();

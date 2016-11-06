@@ -1,18 +1,24 @@
 package com.lnyp.sexybeach.adapter;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
+import com.apkfuns.logutils.LogUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
 import com.lnyp.sexybeach.entry.ListEntity;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,30 +52,56 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(View arg0, Object arg1) {
-        return arg0 == arg1;
+    public boolean isViewFromObject(View view, Object obj) {
+        return view == ((View) obj);
     }
+
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
-        ((ViewPager) container).removeView((View) object);
+        container.removeView((View) object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         String imgUrl = Const.BASE_IMG_URL2 + imgs.get(position).getSrc();
 
-        LinearLayout view = (LinearLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
+        RelativeLayout view = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.img_browse, null);
         final PhotoView img = (PhotoView) view.findViewById(R.id.photoViewImg);
+        final RotateLoading rotateLoading = (RotateLoading) view.findViewById(R.id.rotateLoading);
 
         img.setTag(R.string.app_name, imgUrl);
 
         Glide.with(mContext)
                 .load(imgUrl)
-                .asBitmap()
-                .centerCrop()
-                .into(img);
+//                .override(720, 1280)
+                .error(R.drawable.default_empty_bg)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .into(new GlideDrawableImageViewTarget(img) {
+                    @Override
+                    public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+                        super.onResourceReady(drawable, anim);
+                        //在这里添加一些图片加载完成的操作
+
+                        LogUtils.e("*********onResourceReady**********");
+                        rotateLoading.stop();
+                    }
+
+                    @Override
+                    public void onLoadStarted(Drawable placeholder) {
+                        super.onLoadStarted(placeholder);
+                        rotateLoading.start();
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        super.onLoadFailed(e, errorDrawable);
+                        LogUtils.e("***********onLoadFailed**************");
+                        rotateLoading.stop();
+                    }
+                });
 
         img.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
             @Override
@@ -85,7 +117,7 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
             }
         });
 
-        ((ViewPager) container).addView(view);
+        container.addView(view);
 
         return view;
     }

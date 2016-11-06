@@ -25,8 +25,6 @@ public class MainActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        applyKitKatTranslucency();
-
         ProjectPagerAdapter mAdapter = new ProjectPagerAdapter(getSupportFragmentManager());
 
         viewPagerProjects.setOffscreenPageLimit(2);

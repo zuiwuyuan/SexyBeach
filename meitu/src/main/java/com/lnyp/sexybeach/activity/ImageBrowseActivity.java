@@ -29,12 +29,9 @@ public class ImageBrowseActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        applyKitKatTranslucency();
-
         this.imgs = getIntent().getParcelableArrayListExtra("imgs");
 
         viewPagerImgs = (ViewPager) this.findViewById(R.id.viewPagerImgs);
-        viewPagerImgs.setOffscreenPageLimit(4);
 
         PagerAdapter adapter = new ImgBrowsePagerAdapter(this, imgs);
 

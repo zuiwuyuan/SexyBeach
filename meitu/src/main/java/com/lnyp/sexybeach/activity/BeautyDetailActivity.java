@@ -5,11 +5,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apkfuns.logutils.LogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.lnyp.sexybeach.MyApp;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.common.Const;
@@ -17,10 +23,10 @@ import com.lnyp.sexybeach.entry.BeautyDetail;
 import com.lnyp.sexybeach.entry.BeautySimple;
 import com.lnyp.sexybeach.util.FastJsonUtil;
 import com.lnyp.sexybeach.util.Util;
-import com.lnyp.sexybeach.weight.ShowMaxImageView;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.victor.loading.rotate.RotateLoading;
 
 import java.io.IOException;
 
@@ -38,8 +44,14 @@ import okhttp3.Response;
  */
 public class BeautyDetailActivity extends BaseActivity {
 
+    @Bind(R.id.rotateLoading)
+    public RotateLoading rotateLoading;
+
+    @Bind(R.id.scrollContent)
+    public ScrollView scrollContent;
+
     @Bind(R.id.imgCover)
-    public ShowMaxImageView imgCover;
+    public ImageView imgCover;
 
     @Bind(R.id.textCount)
     public TextView textCount;
@@ -56,10 +68,11 @@ public class BeautyDetailActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
-        applyKitKatTranslucency();
+        scrollContent.setVisibility(View.INVISIBLE);
 
         BeautySimple beautySimple = (BeautySimple) getIntent().getSerializableExtra("beautySimple");
 
+        rotateLoading.start();
         getBeautyDetail(beautySimple.getId());
     }
 
@@ -82,7 +95,9 @@ public class BeautyDetailActivity extends BaseActivity {
                 BeautyDetailActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        updateData();
+                        Toast.makeText(BeautyDetailActivity.this, "网络错误", Toast.LENGTH_SHORT).show();
+
+                        rotateLoading.stop();
                     }
                 });
             }
@@ -115,15 +130,25 @@ public class BeautyDetailActivity extends BaseActivity {
 
         Glide.with(this)
                 .load(imgUrl)
-                .asBitmap()
                 .override(720, 1280)
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .skipMemoryCache(true)
-                .into(imgCover);
+                .into(new GlideDrawableImageViewTarget(imgCover) {
+                    @Override
+                    public void onResourceReady(GlideDrawable drawable, GlideAnimation anim) {
+                        super.onResourceReady(drawable, anim);
+                        //在这里添加一些图片加载完成的操作
 
-        textCount.setText("共有" + beautyDetail.getSize() + "张");
+                        textCount.setText("共有" + beautyDetail.getSize() + "张");
 
-        textTitle.setText(beautyDetail.getTitle());
+                        textTitle.setText(beautyDetail.getTitle());
+
+                        scrollContent.setVisibility(View.VISIBLE);
+
+                        rotateLoading.stop();
+                    }
+                });
+
     }
 
     @OnClick({R.id.layoutImgs, R.id.imgBack, R.id.imgShare})
