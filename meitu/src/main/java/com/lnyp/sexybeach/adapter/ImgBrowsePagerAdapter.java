@@ -78,6 +78,7 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
 //                .override(720, 1280)
                 .error(R.drawable.default_empty_bg)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .fitCenter()
                 .skipMemoryCache(true)
                 .into(new GlideDrawableImageViewTarget(img) {
                     @Override
