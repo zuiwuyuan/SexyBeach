@@ -1,5 +1,6 @@
 package com.lnyp.sexybeach.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.lnyp.recyclerview.RecyclerViewLoadingFooter;
 import com.lnyp.recyclerview.RecyclerViewStateUtils;
 import com.lnyp.sexybeach.R;
 import com.lnyp.sexybeach.activity.BeautyDetailActivity;
+import com.lnyp.sexybeach.activity.MainActivity;
 import com.lnyp.sexybeach.adapter.BeautyListAdapter;
 import com.lnyp.sexybeach.entry.BeautySimple;
 import com.lnyp.sexybeach.rspdata.RspBeautySimple;
@@ -70,6 +72,14 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
     private boolean isRefresh = false;
 
     private View view;
+
+    protected MainActivity mActivity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (MainActivity) context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -139,7 +149,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
 
-                getActivity().runOnUiThread(new Runnable() {
+                mActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
@@ -186,7 +196,7 @@ public class FragmentBeautyList extends Fragment implements SwipeRefreshLayout.O
                         page++;
                     }
 
-                    getActivity().runOnUiThread(new Runnable() {
+                    mActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
 
