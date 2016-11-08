@@ -60,7 +60,13 @@ public class ImgBrowsePagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
 
-        container.removeView((View) object);
+
+        RelativeLayout view = (RelativeLayout) object;
+        PhotoView img = (PhotoView) view.findViewById(R.id.photoViewImg);
+
+        Glide.clear(img);
+
+        container.removeView(view);
     }
 
     @Override
